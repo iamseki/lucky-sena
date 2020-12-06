@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"math/rand"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -55,6 +56,8 @@ func generateNumbers(numbers []int, r *rand.Rand, lastResults []int) {
 
 		numbers[i] = rn
 	}
+
+	sort.Ints(numbers)
 }
 
 func contains(s []int, v int) bool {
