@@ -1,6 +1,6 @@
 # Lucky Sena
 
-<p align="center">Lucky Sena is a random number generation between 01 and 60 <i>closed interval</i></p>
+<p align="center">Lucky Sena is a random number generator between 01 and 60 <i>closed interval</i></p>
 
 ## Usage
 
