@@ -1,5 +1,5 @@
 ## Run with GO
-go run main.go --b=10 --e=1,2,3,4
+go run main.go --b=7 --e=1,2,3,4
 
 ## COMPILE FOR LINUX
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build .
