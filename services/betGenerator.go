@@ -1,7 +1,6 @@
 package services
 
 import (
-	"flag"
 	"log"
 	"math/rand"
 	"sort"
@@ -11,42 +10,47 @@ import (
 	"time"
 )
 
+// BetGenerator service that implements IFactory
 type BetGenerator struct {
-	Name string
+	bets            int
+	excludedNumbers []int
 }
 
 func newBetGenerator() *BetGenerator {
-	return &BetGenerator{Name: "teste"}
+	return &BetGenerator{}
+}
+
+// SetBet sets the number of generated bets
+func (b *BetGenerator) SetBet(bets int) {
+	b.bets = bets
+}
+
+// SetExcludedNumbers csv format of the numbers to ignore in generator
+func (b *BetGenerator) SetExcludedNumbers(excludeArgs string) {
+	split := strings.Split(excludeArgs, ",")
+
+	for _, value := range split {
+		n, _ := strconv.Atoi(value)
+		b.excludedNumbers = append(b.excludedNumbers, n)
+	}
+
+	log.Printf("Excluded numbers: %v\n", b.excludedNumbers)
 }
 
 // Run the runnable code of BetGenerator service
 func (b *BetGenerator) Run() {
 	var wg sync.WaitGroup
-	var bets int
-	var lastResult string
-
-	flag.IntVar(&bets, "b", 0, "b is equal the number of bets to be done")
-	flag.StringVar(&lastResult, "e", "", "e is the numbers to exclude in csv format: 1,2,3,4,5,6")
-	flag.Parse()
 
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
 
-	split := strings.Split(lastResult, ",")
-	lastResults := make([]int, len(split))
-	for idx, value := range split {
-		lastResults[idx], _ = strconv.Atoi(value)
-	}
-
-	log.Printf("Last Result: %v\n", lastResults)
-
-	for c := 0; c < bets; c++ {
+	for c := 0; c < b.bets; c++ {
 		wg.Add(1)
 		go func(c int) {
 			defer wg.Done()
 
 			numbers := make([]int, 6)
-			generateNumbers(numbers, r, lastResults)
+			generateNumbers(numbers, r, b.excludedNumbers)
 			log.Printf("bet(%d) - %v\n", c, numbers)
 		}(c)
 	}
