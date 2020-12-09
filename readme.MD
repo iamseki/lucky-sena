@@ -19,7 +19,7 @@ Windows
 
 *`--b`* How many sequence to generate, default value is ***7***
 
-*`--e`* Numbers that must to be exclude of random numbers, default value is ***0***
+*`--e`* Numbers that must to be exclude of random numbers, default value is just the number ***0***
 
 ---
 
