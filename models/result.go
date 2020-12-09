@@ -8,8 +8,8 @@ import (
 
 // Result represents a single result document
 type Result struct {
-	ID   primitive.ObjectID `bson:"_id"`
+	ID   primitive.ObjectID `bson:"_id,omitempty"`
 	Bet  []int              `bson:"bet"`
 	Code int                `bson:"code"`
-	Date time.Time          `bson:"created_at"`
+	Date time.Time          `bson:"date"`
 }
