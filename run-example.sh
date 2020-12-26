@@ -1,3 +1,9 @@
+## Run tests
+
+go run ./... -v # To look for tests in all dirs and subdirs in this project
+
+go run ./services -v # To run tests only in services package
+
 ## Run with GO
 go run main.go --b=7 --e=1,2,3,4
 
