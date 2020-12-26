@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// Result represents a single result document
+// Result represents a single result of a game document
 type Result struct {
 	ID   primitive.ObjectID `bson:"_id,omitempty"`
 	Bet  []int              `bson:"bet"`

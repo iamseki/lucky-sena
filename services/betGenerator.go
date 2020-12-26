@@ -2,6 +2,7 @@ package services
 
 import (
 	"log"
+	"lucky-sena/models"
 	"math/rand"
 	"sort"
 	"strconv"
@@ -40,6 +41,11 @@ func (b *BetGenerator) SetExcludedNumbers(excludeArgs string) {
 // Run the runnable code of BetGenerator service
 func (b *BetGenerator) Run() {
 	var wg sync.WaitGroup
+	var bet models.Bet
+
+	const price float32 = 4.5
+
+	bet.Date = time.Now()
 
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
@@ -52,10 +58,15 @@ func (b *BetGenerator) Run() {
 			numbers := make([]int, 6)
 			generateNumbers(numbers, r, b.excludedNumbers)
 			log.Printf("bet(%d) - %v\n", c, numbers)
+			bet.Numbers = append(bet.Numbers, models.Balls{Bet: numbers})
 		}(c)
 	}
 
 	wg.Wait()
+
+	bet.Coast = price * float32(len(bet.Numbers))
+	// PUT TE BET DOCUMENT INSIDE MONGODB
+	log.Println(bet)
 }
 
 func generateNumbers(numbers []int, r *rand.Rand, lastResults []int) {
