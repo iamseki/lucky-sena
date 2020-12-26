@@ -8,7 +8,7 @@ go run ./services -v # To run tests only in services package
 go run main.go --b=7 --e=1,2,3,4
 
 ## Migrate xlsx to Mongo
-#go run main.go --f=mega_sena.xlsx
+go run main.go --f=mega_sena.xlsx
 
 ## COMPILE FOR LINUX
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o lucky-sena cmd/main.go 
