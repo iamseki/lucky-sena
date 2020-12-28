@@ -31,7 +31,7 @@ func TestGenerateNumbersWithExcludes(t *testing.T) {
 
 	generateNumbers(numbers, r, excludedNumbers)
 	for idx, n := range numbers {
-		if contains(excludedNumbers, n) {
+		if containValue(excludedNumbers, n) {
 			t.Errorf(`generateNumbers() failed, expected any number between 1 and 60 AND not in: %v 
 got: %v at index: %v`, excludedNumbers, n, idx)
 		}

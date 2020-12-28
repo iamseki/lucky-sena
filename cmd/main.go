@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-	// Flags variables
 	var bets int
 	var excludedNumbers string
 	var filename string
@@ -16,20 +15,16 @@ func main() {
 	flag.StringVar(&excludedNumbers, "e", "", "e is the numbers to exclude in csv format: 1,2,3,4,5,6")
 	flag.StringVar(&filename, "f", "", "the name of xlsx file to read and inserts into database")
 
-	// Insert the flags into those variables
 	flag.Parse()
 
-	if bets > 0 { // Do the bets generator stuff
-		// Type assertion is ok because BetGenerator Implements IFactory
-		bg := services.Factory(services.BetsGen).(*services.BetGenerator)
-		bg.SetBet(bets)
-		bg.SetExcludedNumbers(excludedNumbers)
-		// Generate the random numbers and prints it
-		bg.Run()
+	if bets > 0 {
+		betGenerator := services.Factory(services.BetsGen).(*services.BetGenerator)
+		betGenerator.SetNumberOfBets(bets)
+		betGenerator.SetExcludedNumbers(excludedNumbers)
+		betGenerator.Run()
 	} else if filename != "" {
 		xw := services.Factory(services.WriteXlsxResults).(*services.XlsxWriter)
 		xw.SetFileName(filename)
-		// Read xlsx file
 		xw.Run()
 	} else {
 		log.Fatalln(`
