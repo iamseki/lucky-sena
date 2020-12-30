@@ -32,19 +32,18 @@ func (xw *XlsxWriter) SetFileName(name string) {
 func (xw *XlsxWriter) Run() {
 	var wg sync.WaitGroup
 
-	// Connect to mongodb database
 	m := database.Factory(database.MongoDB).(*database.Mongo)
 	defer m.Client.Disconnect(m.Ctx)
 
 	resultsCollection := m.Client.Database("sena").Collection("results")
-	// Read xlsx
-	f, err := excelize.OpenFile(xw.fileName)
+
+	file, err := excelize.OpenFile(xw.fileName)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	sheet := f.GetSheetName(f.GetActiveSheetIndex())
-	rows := f.GetRows(sheet)
+	sheet := file.GetSheetName(file.GetActiveSheetIndex())
+	rows := file.GetRows(sheet)
 
 	for _, row := range rows {
 		betStr := row[2:]
@@ -62,14 +61,14 @@ func (xw *XlsxWriter) Run() {
 		}
 		sort.Ints(betInt)
 
-		// Code its in first position of the row array
-		code, _ := strconv.Atoi(row[0])
-		// row[1] include the date in the format DD/MM/YYYY
-		splited := strings.Split(row[1], "/")
-		// from DD/MM/YYYY to  YYYYMMDD
-		standerized := splited[2] + splited[1] + splited[0]
-		// 20060102 is the standard layout string expected
-		date, err := time.Parse("20060102", standerized)
+		gameCode := 0
+		code, _ := strconv.Atoi(row[gameCode])
+		gameDate := 1
+		splited := strings.Split(row[gameDate], "/")
+		var DAY, MONTH, YEAR = 0, 1, 2
+		standerized := splited[YEAR] + splited[MONTH] + splited[DAY]
+		standardSampleLayout := "gameDate"
+		date, err := time.Parse(standardSampleLayout, standerized)
 		if err != nil {
 			fmt.Println(err)
 		}
