@@ -4,25 +4,23 @@ import (
 	"flag"
 	"log"
 	"lucky-sena/generator"
-	"lucky-sena/parser"
 	"lucky-sena/services"
 )
 
 func main() {
 	var bets int
-	var excludedNumbersSepareByComma string
+	var excludedNumbersCSV string
 	var filename string
 
 	flag.IntVar(&bets, "b", 0, "b is equal the number of bets to be done")
-	flag.StringVar(&excludedNumbersSepareByComma, "e", "", "e is the numbers to exclude in csv format: 1,2,3,4,5,6")
+	flag.StringVar(&excludedNumbersCSV, "e", "", "e is the numbers to exclude in csv format: 1,2,3,4,5,6")
 	flag.StringVar(&filename, "f", "", "the name of xlsx file to read and inserts into database")
 
 	flag.Parse()
 
 	if bets > 0 {
+		excludedBalls := generator.ConvertCSVIntoIntSlice(excludedNumbersCSV)
 		gen := generator.Factory(generator.Default)
-		parser := parser.Factory(parser.Default)
-		excludedBalls := parser.Parse(excludedNumbersSepareByComma)
 		betsGenerated := gen.Generate(generator.Options{Bets: bets, ExcludedNumbers: excludedBalls})
 		log.Println(betsGenerated)
 	} else if filename != "" {
