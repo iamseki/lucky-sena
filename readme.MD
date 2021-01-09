@@ -2,20 +2,20 @@
 
 <p align="center">Lucky Sena is a random number generator between 01 and 60 <i>closed interval</i></p>
 
-## Usage
+## Usage with cli
 
-Run with go e.g `go run main.go --b=10 --e=1,2,3,4` or execute the properly binary of your *OS*:
+Run with go e.g `go run cmd/cli/main.go --b=10 --e=1,2,3,4` or execute the properly binary of your *OS*:
 
 Linux
 
-        ./lucky-sena --b=7 --e=2,16,19,31,43,60,27,35,39,50,59,5,10,29,34,41
+        ./lucky-sena-cli --b=7 --e=2,16,19,31,43,60,27,35,39,50,59,5,10,29,34,41
 
 Windows
 
-        lucky-sena --e=1,2,3,4
+        lucky-sena-cli --e=1,2,3,4
 
 
-## Defaults
+### Defaults
 
 *`--b`* How many sequence to generate, default value is ***7***
 
