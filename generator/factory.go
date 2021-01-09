@@ -1,4 +1,4 @@
-package generators
+package generator
 
 type GeneratorType string
 
@@ -8,7 +8,7 @@ const (
 	CustomBar               = "customBar"
 )
 
-func MakeGenerator(t GeneratorType) Generator {
+func Factory(t GeneratorType) Generator {
 	switch t {
 	case Default:
 		return newDefaultGenerator()

@@ -1,4 +1,4 @@
-package generators
+package generator
 
 type Generator interface {
 	Generate(o Options) []Bet

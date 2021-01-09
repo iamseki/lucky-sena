@@ -1,4 +1,4 @@
-package generators
+package generator
 
 func containValue(numbers []int, value int) bool {
 	for _, n := range numbers {

@@ -1,7 +1,6 @@
-package generators
+package generator
 
 import (
-	"log"
 	"math/rand"
 	"sort"
 	"sync"
@@ -26,8 +25,7 @@ func (generator *defaultGenerator) Generate(options Options) []Bet {
 			defer wg.Done()
 			numbers := make([]int, 6)
 			generateNumbers(numbers, random, options.ExcludedNumbers)
-			log.Printf("bet(%d) - %v\n", c, numbers)
-			bets = append(bets, Bet{Numbers: numbers})
+			bets = append(bets, Bet{numbers})
 		}(c)
 	}
 	wg.Wait()
