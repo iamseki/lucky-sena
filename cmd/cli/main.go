@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"log"
-	"lucky-sena/generator"
+	"lucky-sena/app/generator"
 	"lucky-sena/services"
 )
 
