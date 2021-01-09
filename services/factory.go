@@ -10,18 +10,15 @@ type ServiceType string
 
 // types available on servicetype
 const (
-	BetsGen          ServiceType = "betGenerator"
-	WriteXlsxResults             = "writeXlsx"
+	WriteXlsxResults = "writeXlsx"
 )
 
 // Factory to yield an instance for some service
 func Factory(svc ServiceType) IFactory {
 	switch svc {
-	case BetsGen:
-		return newBetGenerator()
 	case WriteXlsxResults:
 		return newXlsxWriter()
 	default:
-		return newBetGenerator()
+		return newXlsxWriter()
 	}
 }

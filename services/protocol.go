@@ -1,4 +1,4 @@
-package models
+package services
 
 import (
 	"time"
@@ -18,4 +18,12 @@ type Bet struct {
 // Balls represents an array with the numbers of a bet
 type Balls struct {
 	Bet []int `bson:"bet"`
+}
+
+// Result represents a single result of a game document
+type Result struct {
+	ID   primitive.ObjectID `bson:"_id,omitempty"`
+	Bet  []int              `bson:"bet"`
+	Code int                `bson:"code"`
+	Date time.Time          `bson:"date"`
 }

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"lucky-sena/database"
-	"lucky-sena/models"
 	"sort"
 	"strconv"
 	"strings"
@@ -77,7 +76,7 @@ func (xw *XlsxWriter) Run() {
 		//results = append(results, models.Result{Code: code, Date: date, Bet: betInt})
 		wg.Add(1)
 		go func(code int, date time.Time, betInt []int) {
-			result := &models.Result{Code: code, Date: date, Bet: betInt}
+			result := &Result{Code: code, Date: date, Bet: betInt}
 			_, err = resultsCollection.InsertOne(m.Ctx, result)
 			if err != nil {
 				log.Println(err)
