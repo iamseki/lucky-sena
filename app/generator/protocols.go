@@ -1,14 +1,14 @@
 package generator
 
 type Generator interface {
-	Generate(o Options) []Bet
+	Generate(o Options) []GenaretedBet
 }
 
 type Options struct {
-	Bets            int
+	BetsToGenerate  int
 	ExcludedNumbers []int
 }
 
-type Bet struct {
+type GenaretedBet struct {
 	Numbers []int
 }

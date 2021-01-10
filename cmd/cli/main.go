@@ -21,7 +21,7 @@ func main() {
 	if bets > 0 {
 		excludedBalls := generator.ConvertCSVIntoIntSlice(excludedNumbersCSV)
 		gen := generator.Factory(generator.Default)
-		betsGenerated := gen.Generate(generator.Options{Bets: bets, ExcludedNumbers: excludedBalls})
+		betsGenerated := gen.Generate(generator.Options{BetsToGenerate: bets, ExcludedNumbers: excludedBalls})
 		log.Println(betsGenerated)
 	} else if filename != "" {
 		xw := services.Factory(services.WriteXlsxResults).(*services.XlsxWriter)

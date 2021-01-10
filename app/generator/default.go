@@ -13,19 +13,19 @@ func newDefaultGenerator() Generator {
 	return &defaultGenerator{}
 }
 
-func (generator *defaultGenerator) Generate(options Options) []Bet {
+func (generator *defaultGenerator) Generate(options Options) []GenaretedBet {
 	s := rand.NewSource(time.Now().UnixNano())
 	random := rand.New(s)
 	var wg sync.WaitGroup
-	var bets []Bet
+	var bets []GenaretedBet
 
-	for c := 0; c < options.Bets; c++ {
+	for c := 0; c < options.BetsToGenerate; c++ {
 		wg.Add(1)
 		go func(c int) {
 			defer wg.Done()
 			numbers := make([]int, 6)
 			generateNumbers(numbers, random, options.ExcludedNumbers)
-			bets = append(bets, Bet{numbers})
+			bets = append(bets, GenaretedBet{numbers})
 		}(c)
 	}
 	wg.Wait()
