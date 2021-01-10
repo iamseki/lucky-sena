@@ -4,7 +4,7 @@ import (
 	"flag"
 	"log"
 	"lucky-sena/app/generator"
-	"lucky-sena/services"
+	"lucky-sena/app/parser"
 )
 
 func main() {
@@ -24,9 +24,14 @@ func main() {
 		betsGenerated := gen.Generate(generator.Options{BetsToGenerate: bets, ExcludedNumbers: excludedBalls})
 		log.Println(betsGenerated)
 	} else if filename != "" {
-		xw := services.Factory(services.WriteXlsxResults).(*services.XlsxWriter)
-		xw.SetFileName(filename)
-		xw.Run()
+		/*
+			xw := services.Factory(services.WriteXlsxResults).(*services.XlsxWriter)
+			xw.SetFileName(filename)
+			xw.Run()
+		*/
+		p := parser.Factory(parser.Xlsx)
+		bets := p.Parse(parser.Options{filename})
+		log.Println(bets)
 	} else {
 		log.Fatalln(`
 ******************* THIS PROGRAM IS DESIGNED TO RUN WITH THE FOLLOWING FLAG's OPTIONS **********
