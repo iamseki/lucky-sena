@@ -58,7 +58,7 @@ func (xw *XlsxParser) Parse(options Options) []bet.Bet {
 			log.Fatalln(err)
 		}
 
-		bets = append(bets, bet.Bet{betInt, code, date, bet.Coast})
+		bets = append(bets, bet.Bet{betInt, code, date})
 	}
 
 	return bets
