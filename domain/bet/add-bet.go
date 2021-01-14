@@ -1,14 +1,14 @@
 package bet
 
-import (
-	"time"
-)
+import "time"
 
-// Bet represents some bets made by someone in a specific game
-type Bet struct {
+type BetModel struct {
+	ID      string    `bson:"id" json:"id"`
 	Numbers []int     `bson:"numbers" json:"numbers"`
 	Code    int       `bson:"code" json:"code"`
 	Date    time.Time `bson:"date" json:"date"`
 }
 
-const BetCoast = 4.5
+type AddBet interface {
+	add(Bet) BetModel
+}
