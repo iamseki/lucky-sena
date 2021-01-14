@@ -4,10 +4,10 @@ import (
 	"flag"
 	"log"
 	"lucky-sena/app/bet"
-	"lucky-sena/app/generator"
-	"lucky-sena/app/parser"
 	"lucky-sena/domain/bet"
 	"lucky-sena/infra/db/mongodb"
+	"lucky-sena/infra/generator"
+	"lucky-sena/infra/parser"
 	"sync"
 	"time"
 )
