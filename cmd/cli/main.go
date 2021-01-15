@@ -46,13 +46,8 @@ func main() {
 		}
 		wg.Wait()
 	} else if filename != "" {
-		/*
-			xw := services.Factory(services.WriteXlsxResults).(*services.XlsxWriter)
-			xw.SetFileName(filename)
-			xw.Run()
-		*/
 		p := parser.Factory(parser.Xlsx)
-		bets := p.Parse(parser.Options{filename})
+		bets := p.Parse(parser.Options{FileName: filename})
 		log.Println(bets)
 	} else {
 		log.Fatalln(`
