@@ -5,7 +5,7 @@ go run ./... -v # To look for tests in all dirs and subdirs in this project
 go run ./services -v # To run tests only in services package
 
 ## Run with GO
-go run main.go --b=7 --e=1,2,3,4
+go run cmd/cli/generate-bet/*.go --b=7 --e=11,12,13,14,16,20,22,33,34,35,36,37,41,42,45,52,53,55,57,60 --c=3000
 
 ## Migrate xlsx to Mongo
 go run main.go --f=mega_sena.xlsx

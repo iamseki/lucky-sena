@@ -22,7 +22,7 @@ func newMongoConnection() *Mongo {
 
 	mongoConn, declared := os.LookupEnv("MONGO_URI")
 	if !declared {
-		log.Fatalln("MONGO_URI must be provided")
+		mongoConn = "mongodb://localhost:27017"
 	}
 	log.Printf("Trying to connect in %v\n", mongoConn)
 

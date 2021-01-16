@@ -13,7 +13,7 @@ func NewAddBet(repository AddBetRepository) *DbAddBet {
 	return &DbAddBet{Repository: repository}
 }
 
-func (db *DbAddBet) Add(bet bet.Bet) bet.BetModel {
+func (db *DbAddBet) AddBet(bet bet.Bet) bet.BetModel {
 	createdBet, err := db.Repository.Add(bet)
 	if err != nil {
 		log.Fatalln(err)
