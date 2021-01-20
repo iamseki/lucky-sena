@@ -20,8 +20,8 @@ func (a *FindBetMongoRepository) Find() ([]bet.Bet, error) {
 	resultsCollection := a.Client.getCollection("results")
 	cursor, err := resultsCollection.Find(a.Client.Ctx, bson.D{})
 	if err != nil {
-		return nil, err
 		defer cursor.Close(a.Client.Ctx)
+		return nil, err
 	}
 
 	var bets []bet.Bet

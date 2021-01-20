@@ -19,16 +19,20 @@ func main() {
 	addBetRepository := mongodb.NewAddBetMongoRepository()
 	addBetUseCase := betusecases.NewAddBet(addBetRepository)
 
-	betsGenerated := makeBets(f)
-	wg.Add(len(betsGenerated))
+	betsGenerated := generateBets(f)
 
-	log.Println("Persisting generated bets into database")
-	for _, b := range betsGenerated {
-		go func(b generator.GenaretedBet) {
-			defer wg.Done()
-			addBetUseCase.AddBet(bet.Bet{Numbers: b.Numbers, Code: f.gameCode, Date: time.Now()})
-		}(b)
+	if f.persist {
+		wg.Add(len(betsGenerated))
+		log.Println("Persisting generated bets into database")
+		for _, b := range betsGenerated {
+			go func(b generator.GenaretedBet) {
+				defer wg.Done()
+				addBetUseCase.AddBet(bet.Bet{Numbers: b.Numbers, Code: f.gameCode, Date: time.Now()})
+			}(b)
+		}
+		wg.Wait()
+		log.Println("Bets persisted into database !")
+	} else {
+		log.Println("Bets generated: \n", betsGenerated)
 	}
-	wg.Wait()
-	log.Println("Bets persisted into database !")
 }
