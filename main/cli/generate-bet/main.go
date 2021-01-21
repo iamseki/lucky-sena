@@ -2,9 +2,9 @@ package main
 
 import (
 	"log"
-	"lucky-sena/cmd/cli/factories"
 	"lucky-sena/domain/bet"
 	"lucky-sena/infra/generator"
+	"lucky-sena/main/factories"
 	"sync"
 	"time"
 )

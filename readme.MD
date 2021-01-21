@@ -8,11 +8,11 @@ Run with go e.g `go run cmd/cli/main.go --b=10 --e=1,2,3,4` or execute the prope
 
 Linux
 
-        ./lucky-sena-cli --b=7 --e=2,16,19,31,43,60,27,35,39,50,59,5,10,29,34,41
+        ./generate-bet --b=7 --e=2,16,19,31,43,60,27,35,39,50,59,5,10,29,34,41 --c=2336 --p
 
 Windows
 
-        lucky-sena-cli --e=1,2,3,4
+        generate-bet --b=7 --e=2,16,19,31,43,60,27,35,39,50,59,5,10,29,34,41 --c=2336 --p
 
 
 ### Defaults
