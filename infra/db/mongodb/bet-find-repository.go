@@ -39,3 +39,7 @@ func (a *FindBetMongoRepository) FindBetByCode(code int) (bet.Bet, error) {
 	resultsCollection.FindOne(a.Client.Ctx, bson.M{"code": code}).Decode(bet)
 	return bet, nil
 }
+
+func (a *FindBetMongoRepository) FindBetsByNumbers(numbers []int) ([]bet.Bet, error) {
+	return nil, nil
+}

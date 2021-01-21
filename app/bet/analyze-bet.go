@@ -1,7 +1,6 @@
 package betusecases
 
 import (
-	"fmt"
 	"log"
 )
 
@@ -21,11 +20,10 @@ func (analyze *AnalyzeBet) NextBetCode() int {
 	return len(bets) + 1
 }
 
-func (analyze *AnalyzeBet) IsBetAlreadyWon(code int) bool {
-	bet, err := analyze.betRepository.FindBetByCode(code)
+func (analyze *AnalyzeBet) IsBetAlreadyWon(numbers []int) bool {
+	bets, err := analyze.betRepository.FindBetsByNumbers(numbers)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println(bet)
-	return true
+	return len(bets) > 0
 }

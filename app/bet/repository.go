@@ -14,7 +14,12 @@ type FindBetByCodeRepository interface {
 	FindBetByCode(code int) (bet.Bet, error)
 }
 
+type FindBetsByNumbersRepository interface {
+	FindBetsByNumbers(numbers []int) ([]bet.Bet, error)
+}
+
 type AnalyzeBetRepository interface {
 	FindBetRepository
 	FindBetByCodeRepository
+	FindBetsByNumbersRepository
 }
