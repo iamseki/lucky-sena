@@ -2,9 +2,8 @@ package main
 
 import (
 	"log"
-	"lucky-sena/app/bet"
+	"lucky-sena/cmd/cli/factories"
 	"lucky-sena/domain/bet"
-	"lucky-sena/infra/db/mongodb"
 	"lucky-sena/infra/generator"
 	"sync"
 	"time"
@@ -15,10 +14,12 @@ func main() {
 
 	f := &flags{}
 	parseFlags(f)
+	if f.gameCode == 0 {
+		analyzeBet := factories.NewAnalyzeBetUseCase()
+		f.gameCode = analyzeBet.NextBetCode()
+	}
 
-	addBetRepository := mongodb.NewAddBetMongoRepository()
-	addBetUseCase := betusecases.NewAddBet(addBetRepository)
-
+	addBetUseCase := factories.NewAddBetUseCase()
 	betsGenerated := generateBets(f)
 
 	if f.persist {

@@ -13,14 +13,23 @@ func parseFlags(f *flags) {
 	flag.BoolVar(&f.persist, "p", false, "persist to database if true")
 
 	flag.Parse()
-	flagNames := []string{"b", "e", "c"}
-	for _, name := range flagNames {
-		if name != "p" && !isFlagPassed(name) {
-			log.Fatalln(`
+
+	requiredFlags := []string{"b", "e"}
+
+	if !isRequiredFlagsPassed(requiredFlags) {
+		log.Fatalln(`
 ******************* THIS PROGRAM IS DESIGNED TO RUN WITH THE FOLLOWING FLAG's OPTIONS **********
 ------->   ./generate-bet --e=1,2,3 --b=2 --c=2334`)
+	}
+}
+
+func isRequiredFlagsPassed(requiredFlags []string) bool {
+	for _, name := range requiredFlags {
+		if !isFlagPassed(name) {
+			return false
 		}
 	}
+	return true
 }
 
 func isFlagPassed(name string) bool {
@@ -31,6 +40,10 @@ func isFlagPassed(name string) bool {
 		}
 	})
 	return found
+}
+
+func isFlagOptional(name string) bool {
+	return name == "c" || name == "p"
 }
 
 func generateBets(f *flags) []generator.GenaretedBet {
