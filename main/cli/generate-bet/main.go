@@ -12,23 +12,23 @@ import (
 func main() {
 	var wg sync.WaitGroup
 
-	f := &flags{}
-	parseFlags(f)
-	if f.gameCode == 0 {
+	options := &flags{}
+	parseFlags(options)
+	if options.gameCode == 0 {
 		analyzeBet := factories.NewAnalyzeBetUseCase()
-		f.gameCode = analyzeBet.NextBetCode()
+		options.gameCode = analyzeBet.NextBetCode()
 	}
 
 	addBetUseCase := factories.NewAddBetUseCase()
-	betsGenerated := generateBets(f)
+	betsGenerated := generateBets(options)
 
-	if f.persist {
+	if options.persist {
 		wg.Add(len(betsGenerated))
 		log.Println("Persisting generated bets into database")
 		for _, b := range betsGenerated {
 			go func(b generator.GenaretedBet) {
 				defer wg.Done()
-				addBetUseCase.AddBet(bet.Bet{Numbers: b.Numbers, Code: f.gameCode, Date: time.Now()})
+				addBetUseCase.AddBet(bet.Bet{Numbers: b.Numbers, Code: options.gameCode, Date: time.Now()})
 			}(b)
 		}
 		wg.Wait()
