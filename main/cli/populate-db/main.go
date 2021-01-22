@@ -14,12 +14,13 @@ func main() {
 		log.Println("XLSX_FILE must not be empty")
 	}
 
+	options := &flags{}
+	parseFlags(options)
 	bets := p.Parse(parser.Options{FileName: f})
-	chunkSize := 100
 
-	betsProcessed, err := persistIntoDatabaseConcurrently(bets, chunkSize)
-	if err != nil {
-		log.Fatalln("Something was wrong when trying to persist xlsx converted bets into db: ", err)
+	if options.concurrency {
+		persist(persistIntoDatabaseConcurrently, bets, options.chunkSize)
+	} else {
+		persist(persistIntoDatabase, bets, options.chunkSize)
 	}
-	log.Printf("%v Bets from xlsx persisted into db successfully\n", betsProcessed)
 }

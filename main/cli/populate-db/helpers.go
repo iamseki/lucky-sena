@@ -1,11 +1,25 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"lucky-sena/domain/bet"
 	"lucky-sena/main/factories"
 	"sync"
 )
+
+func parseFlags(f *flags) {
+	flag.BoolVar(&f.concurrency, "concurrency", false, "persist to database if true")
+	flag.IntVar(&f.chunkSize, "chunk", 100, "chunks to be processed")
+}
+
+func persist(fn persistFunction, bets []bet.Bet, chunk int) {
+	betsProcessed, err := fn(bets, chunk)
+	if err != nil {
+		log.Fatalln("Something was wrong when trying to persist xlsx converted bets into db: ", err)
+	}
+	log.Printf("%v Bets from xlsx persisted into db successfully\n", betsProcessed)
+}
 
 func persistIntoDatabaseConcurrently(betsToPersist []bet.Bet, chunkSize int) (int, error) {
 	var wg sync.WaitGroup
