@@ -14,7 +14,7 @@ import (
 // XlsxParser struct that implements IFactory
 type XlsxParser struct{}
 
-func newXlsxParser() *XlsxParser {
+func newXlsxExcelizeParser() *XlsxParser {
 	return &XlsxParser{}
 }
 

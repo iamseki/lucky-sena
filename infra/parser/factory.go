@@ -3,15 +3,15 @@ package parser
 type ParserType string
 
 const (
-	Default ParserType = "default"
-	Xlsx               = "xlsx"
+	Default      ParserType = "default"
+	XlsxExcelize            = "xlsxExcelize"
 )
 
 func Factory(pt ParserType) Parser {
 	switch pt {
-	case Xlsx:
-		return newXlsxParser()
+	case XlsxExcelize:
+		return newXlsxExcelizeParser()
 	default:
-		return newXlsxParser()
+		return newXlsxExcelizeParser()
 	}
 }
