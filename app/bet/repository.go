@@ -6,6 +6,10 @@ type AddBetRepository interface {
 	Add(bet.Bet) (bet.BetModel, error)
 }
 
+type InsertBetsRepository interface {
+	InsertMany([]bet.Bet) error
+}
+
 type FindBetRepository interface {
 	Find() ([]bet.Bet, error)
 }

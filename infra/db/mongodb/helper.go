@@ -18,7 +18,7 @@ type Mongo struct {
 
 func newMongoConnection() *Mongo {
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	// defer cancel()
+	//defer cancel()
 
 	mongoConn, declared := os.LookupEnv("MONGO_URI")
 	if !declared {

@@ -14,3 +14,8 @@ func NewFindBetsUseCase() *betusecases.FindBet {
 	findBetRepository := mongodb.NewFindBetMongoRepository()
 	return betusecases.NewFindBet(findBetRepository)
 }
+
+func NewInsertBetsUseCase() *betusecases.DbInsertBets {
+	insertBetsRepository := mongodb.NewInsertBetsMongoRepository()
+	return betusecases.NewInsertBets(insertBetsRepository)
+}
