@@ -32,7 +32,7 @@ func newMongoConnection() *Mongo {
 	}
 
 	log.Printf("App is connected to MongoDB !")
-	return &Mongo{client, ctx, "lucky-sena"}
+	return &Mongo{client, ctx, "sena"}
 }
 
 func (m *Mongo) getCollection(name string) *mongo.Collection {
