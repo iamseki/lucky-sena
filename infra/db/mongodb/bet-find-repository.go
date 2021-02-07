@@ -4,6 +4,7 @@ import (
 	"lucky-sena/domain/bet"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type FindBetMongoRepository struct {
@@ -18,7 +19,12 @@ func NewFindBetMongoRepository() *FindBetMongoRepository {
 
 func (a *FindBetMongoRepository) Find() ([]bet.Bet, error) {
 	resultsCollection := a.Client.getCollection("results")
-	cursor, err := resultsCollection.Find(a.Client.Ctx, bson.D{})
+
+	findOptions := options.Find()
+	// Sort by `price` field descending
+	findOptions.SetSort(bson.D{{"code", -1}})
+
+	cursor, err := resultsCollection.Find(a.Client.Ctx, bson.D{}, findOptions)
 	if err != nil {
 		defer cursor.Close(a.Client.Ctx)
 		return nil, err

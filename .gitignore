@@ -11,3 +11,5 @@ senaAnalise*.js
 
 scraper
 generate-bet
+converter
+*.csv

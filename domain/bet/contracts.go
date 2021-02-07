@@ -19,3 +19,7 @@ type BetModel struct {
 }
 
 const BetCoast = 4.5
+
+type BetCsvConverter interface {
+	ConvertBetsToCsv() error
+}

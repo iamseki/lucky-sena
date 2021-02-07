@@ -7,6 +7,13 @@ type DbBetToCsv struct {
 	BetToCsv   protocols.CSVConverter
 }
 
+func NewDbBetToCsv(r protocols.FindBetRepository, c protocols.CSVConverter) *DbBetToCsv {
+	return &DbBetToCsv{
+		Repository: r,
+		BetToCsv:   c,
+	}
+}
+
 func (usecase *DbBetToCsv) ConvertBetsToCsv() error {
 	bets, err := usecase.Repository.Find()
 	if err != nil {
