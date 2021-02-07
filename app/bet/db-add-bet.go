@@ -2,14 +2,15 @@ package betusecases
 
 import (
 	"log"
+	"lucky-sena/app/protocols"
 	"lucky-sena/domain/bet"
 )
 
 type DbAddBet struct {
-	Repository AddBetRepository
+	Repository protocols.AddBetRepository
 }
 
-func NewAddBet(repository AddBetRepository) *DbAddBet {
+func NewAddBet(repository protocols.AddBetRepository) *DbAddBet {
 	return &DbAddBet{Repository: repository}
 }
 

@@ -1,20 +1,19 @@
 package betusecases
 
-import "lucky-sena/domain/bet"
-
-type BetScraper interface {
-	Scrap(string) bet.Bet
-}
+import (
+	"lucky-sena/app/protocols"
+	"lucky-sena/domain/bet"
+)
 
 type LastGameScrapper struct {
-	Scraper BetScraper
+	Scraper protocols.BetScraper
 }
 
 func (s *LastGameScrapper) Scrap(url string) bet.Bet {
 	return s.Scraper.Scrap(url)
 }
 
-func NewLastBetScrapper(b BetScraper) *LastGameScrapper {
+func NewLastBetScrapper(b protocols.BetScraper) *LastGameScrapper {
 	return &LastGameScrapper{
 		Scraper: b,
 	}

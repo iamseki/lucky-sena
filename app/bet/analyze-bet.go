@@ -2,13 +2,14 @@ package betusecases
 
 import (
 	"log"
+	"lucky-sena/app/protocols"
 )
 
 type AnalyzeBet struct {
-	betRepository AnalyzeBetRepository
+	betRepository protocols.AnalyzeBetRepository
 }
 
-func NewAnalyzeBet(repository AnalyzeBetRepository) *AnalyzeBet {
+func NewAnalyzeBet(repository protocols.AnalyzeBetRepository) *AnalyzeBet {
 	return &AnalyzeBet{repository}
 }
 

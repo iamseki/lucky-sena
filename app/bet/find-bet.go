@@ -1,12 +1,15 @@
 package betusecases
 
-import "lucky-sena/domain/bet"
+import (
+	"lucky-sena/app/protocols"
+	"lucky-sena/domain/bet"
+)
 
 type FindBet struct {
-	repository FindBetRepository
+	repository protocols.FindBetRepository
 }
 
-func NewFindBet(repository FindBetRepository) *FindBet {
+func NewFindBet(repository protocols.FindBetRepository) *FindBet {
 	return &FindBet{
 		repository,
 	}

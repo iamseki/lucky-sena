@@ -1,4 +1,4 @@
-package betusecases
+package protocols
 
 import "lucky-sena/domain/bet"
 
