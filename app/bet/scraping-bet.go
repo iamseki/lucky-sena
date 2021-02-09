@@ -2,14 +2,14 @@ package betusecases
 
 import (
 	"lucky-sena/app/protocols"
-	"lucky-sena/domain/bet"
+	"lucky-sena/domain"
 )
 
 type LastGameScrapper struct {
 	Scraper protocols.BetScraper
 }
 
-func (s *LastGameScrapper) Scrap(url string) bet.Bet {
+func (s *LastGameScrapper) Scrap(url string) domain.Bet {
 	return s.Scraper.Scrap(url)
 }
 

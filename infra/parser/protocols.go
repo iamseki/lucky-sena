@@ -1,9 +1,11 @@
 package parser
 
-import "lucky-sena/domain/bet"
+import (
+	"lucky-sena/domain"
+)
 
 type Parser interface {
-	Parse(Options) []bet.Bet
+	Parse(Options) []domain.Bet
 }
 
 type Options struct {

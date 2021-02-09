@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"lucky-sena/domain/bet"
+	"lucky-sena/domain"
 	"lucky-sena/infra/generator"
 	"lucky-sena/main/factories"
 	"sync"
@@ -28,7 +28,7 @@ func main() {
 		for _, b := range betsGenerated {
 			go func(b generator.GenaretedBet) {
 				defer wg.Done()
-				addBetUseCase.AddBet(bet.Bet{Numbers: b.Numbers, Code: options.gameCode, Date: time.Now()})
+				addBetUseCase.AddBet(domain.Bet{Numbers: b.Numbers, Code: options.gameCode, Date: time.Now()})
 			}(b)
 		}
 		wg.Wait()

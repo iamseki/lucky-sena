@@ -1,7 +1,7 @@
 package protocols
 
-import "lucky-sena/domain/bet"
+import "lucky-sena/domain"
 
 type BetScraper interface {
-	Scrap(string) bet.Bet
+	Scrap(string) domain.Bet
 }

@@ -1,25 +1,27 @@
 package protocols
 
-import "lucky-sena/domain/bet"
+import (
+	"lucky-sena/domain"
+)
 
 type AddBetRepository interface {
-	Add(bet.Bet) (bet.BetModel, error)
+	Add(domain.Bet) (domain.BetModel, error)
 }
 
 type InsertBetsRepository interface {
-	InsertMany([]bet.Bet) error
+	InsertMany([]domain.Bet) error
 }
 
 type FindBetRepository interface {
-	Find() ([]bet.Bet, error)
+	Find() ([]domain.Bet, error)
 }
 
 type FindBetByCodeRepository interface {
-	FindBetByCode(code int) (bet.Bet, error)
+	FindBetByCode(code int) (domain.Bet, error)
 }
 
 type FindBetsByNumbersRepository interface {
-	FindBetsByNumbers(numbers []int) ([]bet.Bet, error)
+	FindBetsByNumbers(numbers []int) ([]domain.Bet, error)
 }
 
 type AnalyzeBetRepository interface {

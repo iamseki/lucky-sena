@@ -1,7 +1,7 @@
 package mongodb
 
 import (
-	"lucky-sena/domain/bet"
+	"lucky-sena/domain"
 )
 
 type InsertBetsMongoRepository struct {
@@ -14,7 +14,7 @@ func NewInsertBetsMongoRepository() *InsertBetsMongoRepository {
 	}
 }
 
-func (m *InsertBetsMongoRepository) InsertMany(bets []bet.Bet) error {
+func (m *InsertBetsMongoRepository) InsertMany(bets []domain.Bet) error {
 	resultCollection := m.Client.getCollection("results")
 
 	docs := []interface{}{}

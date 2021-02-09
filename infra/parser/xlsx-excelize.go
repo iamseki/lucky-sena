@@ -2,7 +2,7 @@ package parser
 
 import (
 	"log"
-	"lucky-sena/domain/bet"
+	"lucky-sena/domain"
 	"sort"
 	"strconv"
 	"strings"
@@ -18,7 +18,7 @@ func newXlsxExcelizeParser() *XlsxParser {
 	return &XlsxParser{}
 }
 
-func (xw *XlsxParser) Parse(options Options) []bet.Bet {
+func (xw *XlsxParser) Parse(options Options) []domain.Bet {
 	file, err := excelize.OpenFile(options.FileName)
 	if err != nil {
 		log.Fatalln(err)
@@ -26,7 +26,7 @@ func (xw *XlsxParser) Parse(options Options) []bet.Bet {
 
 	xlsxSheet := file.GetSheetName(file.GetActiveSheetIndex())
 	rows := file.GetRows(xlsxSheet)
-	var bets []bet.Bet
+	var bets []domain.Bet
 
 	for _, row := range rows {
 		betString := row[2:]
@@ -58,7 +58,7 @@ func (xw *XlsxParser) Parse(options Options) []bet.Bet {
 			log.Fatalln(err)
 		}
 
-		bets = append(bets, bet.Bet{betInt, code, date})
+		bets = append(bets, domain.Bet{betInt, code, date})
 	}
 
 	return bets

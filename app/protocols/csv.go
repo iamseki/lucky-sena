@@ -1,7 +1,7 @@
 package protocols
 
-import "lucky-sena/domain/bet"
+import "lucky-sena/domain"
 
 type CSVConverter interface {
-	Convert([]bet.Bet) error
+	Convert([]domain.Bet) error
 }

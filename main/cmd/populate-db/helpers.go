@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"log"
-	"lucky-sena/domain/bet"
+	"lucky-sena/domain"
 	"lucky-sena/main/factories"
 	"sync"
 )
@@ -13,7 +13,7 @@ func parseFlags(f *flags) {
 	flag.IntVar(&f.chunkSize, "chunk", 100, "chunks to be processed")
 }
 
-func persist(fn persistFunction, bets []bet.Bet, chunk int) {
+func persist(fn persistFunction, bets []domain.Bet, chunk int) {
 	betsProcessed, err := fn(bets, chunk)
 	if err != nil {
 		log.Fatalln("Something was wrong when trying to persist xlsx converted bets into db: ", err)
@@ -21,7 +21,7 @@ func persist(fn persistFunction, bets []bet.Bet, chunk int) {
 	log.Printf("%v Bets from xlsx persisted into db successfully\n", betsProcessed)
 }
 
-func persistIntoDatabaseConcurrently(betsToPersist []bet.Bet, chunkSize int) (int, error) {
+func persistIntoDatabaseConcurrently(betsToPersist []domain.Bet, chunkSize int) (int, error) {
 	var wg sync.WaitGroup
 	var betsProcessed int
 
@@ -33,7 +33,7 @@ func persistIntoDatabaseConcurrently(betsToPersist []bet.Bet, chunkSize int) (in
 
 		betsProcessed += len(betsToProcess)
 		wg.Add(1)
-		go func(w *sync.WaitGroup, bets []bet.Bet) {
+		go func(w *sync.WaitGroup, bets []domain.Bet) {
 			defer w.Done()
 			insertUseCase.InsertBets(bets)
 		}(&wg, betsToProcess)
@@ -51,7 +51,7 @@ func persistIntoDatabaseConcurrently(betsToPersist []bet.Bet, chunkSize int) (in
 	return betsProcessed, nil
 }
 
-func persistIntoDatabase(betsToPersist []bet.Bet, chunkSize int) (int, error) {
+func persistIntoDatabase(betsToPersist []domain.Bet, chunkSize int) (int, error) {
 	betsProcessed := len(betsToPersist)
 	log.Println("Instantiate insert use case")
 	insertUseCase := factories.NewInsertBetsUseCase()

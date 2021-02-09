@@ -1,8 +1,8 @@
 package main
 
-import "lucky-sena/domain/bet"
+import "lucky-sena/domain"
 
-type persistFunction func(betsToPersist []bet.Bet, chunkSize int) (int, error)
+type persistFunction func(betsToPersist []domain.Bet, chunkSize int) (int, error)
 
 type flags struct {
 	concurrency bool

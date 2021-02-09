@@ -2,7 +2,7 @@ package mongodb
 
 import (
 	"fmt"
-	"lucky-sena/domain/bet"
+	"lucky-sena/domain"
 )
 
 type AddBetMongoRepository struct {
@@ -15,13 +15,13 @@ func NewAddBetMongoRepository() *AddBetMongoRepository {
 	}
 }
 
-func (m *AddBetMongoRepository) Add(betToAdd bet.Bet) (bet.BetModel, error) {
+func (m *AddBetMongoRepository) Add(betToAdd domain.Bet) (domain.BetModel, error) {
 	collectionSena := m.Client.getCollection("bets")
 	result, err := collectionSena.InsertOne(m.Client.Ctx, betToAdd)
 	if err != nil {
-		return bet.BetModel{}, err
+		return domain.BetModel{}, err
 	}
 	id := fmt.Sprintf("%v", result.InsertedID)
 
-	return bet.BetModel{ID: id, Numbers: betToAdd.Numbers, Code: betToAdd.Code, Date: betToAdd.Date}, nil
+	return domain.BetModel{ID: id, Numbers: betToAdd.Numbers, Code: betToAdd.Code, Date: betToAdd.Date}, nil
 }

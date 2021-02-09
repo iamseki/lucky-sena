@@ -2,7 +2,7 @@ package scrapper
 
 import (
 	"log"
-	"lucky-sena/domain/bet"
+	"lucky-sena/domain"
 	"sync"
 	"time"
 
@@ -15,7 +15,7 @@ func NewCollyScrapper() *CollyScrapper {
 	return &CollyScrapper{}
 }
 
-func (s *CollyScrapper) Scrap(endpoint string) bet.Bet {
+func (s *CollyScrapper) Scrap(endpoint string) domain.Bet {
 	c := colly.NewCollector()
 	var gameCode int
 	var numbers []int
@@ -49,6 +49,6 @@ func (s *CollyScrapper) Scrap(endpoint string) bet.Bet {
 
 	wg.Wait()
 
-	b := bet.Bet{Numbers: numbers, Code: gameCode, Date: date}
+	b := domain.Bet{Numbers: numbers, Code: gameCode, Date: date}
 	return b
 }

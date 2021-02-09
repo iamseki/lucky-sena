@@ -1,7 +1,7 @@
 package mongodb
 
 import (
-	"lucky-sena/domain/bet"
+	"lucky-sena/domain"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -17,7 +17,7 @@ func NewFindBetMongoRepository() *FindBetMongoRepository {
 	}
 }
 
-func (a *FindBetMongoRepository) Find() ([]bet.Bet, error) {
+func (a *FindBetMongoRepository) Find() ([]domain.Bet, error) {
 	resultsCollection := a.Client.getCollection("results")
 
 	findOptions := options.Find()
@@ -30,22 +30,22 @@ func (a *FindBetMongoRepository) Find() ([]bet.Bet, error) {
 		return nil, err
 	}
 
-	var bets []bet.Bet
+	var bets []domain.Bet
 	for cursor.Next(a.Client.Ctx) {
-		var bet bet.Bet
+		var bet domain.Bet
 		cursor.Decode(&bet)
 		bets = append(bets, bet)
 	}
 	return bets, nil
 }
 
-func (a *FindBetMongoRepository) FindBetByCode(code int) (bet.Bet, error) {
+func (a *FindBetMongoRepository) FindBetByCode(code int) (domain.Bet, error) {
 	resultsCollection := a.Client.getCollection("results")
-	var bet bet.Bet
+	var bet domain.Bet
 	resultsCollection.FindOne(a.Client.Ctx, bson.M{"code": code}).Decode(bet)
 	return bet, nil
 }
 
-func (a *FindBetMongoRepository) FindBetsByNumbers(numbers []int) ([]bet.Bet, error) {
+func (a *FindBetMongoRepository) FindBetsByNumbers(numbers []int) ([]domain.Bet, error) {
 	return nil, nil
 }

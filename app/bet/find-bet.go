@@ -2,7 +2,7 @@ package betusecases
 
 import (
 	"lucky-sena/app/protocols"
-	"lucky-sena/domain/bet"
+	"lucky-sena/domain"
 )
 
 type FindBet struct {
@@ -15,7 +15,7 @@ func NewFindBet(repository protocols.FindBetRepository) *FindBet {
 	}
 }
 
-func (f *FindBet) Find() ([]bet.Bet, error) {
+func (f *FindBet) Find() ([]domain.Bet, error) {
 	bets, err := f.repository.Find()
 	if err != nil {
 		return nil, err

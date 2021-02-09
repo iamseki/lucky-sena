@@ -1,4 +1,4 @@
-package bet
+package domain
 
 import (
 	"time"
@@ -22,4 +22,9 @@ const BetCoast = 4.5
 
 type BetCsvConverter interface {
 	ConvertBetsToCsv() error
+}
+
+type BetAnalyzer interface {
+	NextBetCode() int
+	IsBetAlreadyWon([]int) bool
 }
