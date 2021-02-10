@@ -4,6 +4,8 @@ go run ./... -v # To look for tests in all dirs and subdirs in this project
 
 go run ./services -v # To run tests only in services package
 
+go test ./tests/...  -v # To run all tests in tests subfolders
+
 ## Run with GO
 go run main/cmd/generate-bet/*.go --b=7 --e=11,12,13,14,16,20,22,33,34,35,36,37,41,42,45,52,53,55,57,60 --p
 
