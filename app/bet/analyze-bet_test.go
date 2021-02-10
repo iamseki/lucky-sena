@@ -1,7 +1,6 @@
-package app_test
+package betusecases
 
 import (
-	betusecases "lucky-sena/app/bet"
 	"lucky-sena/app/protocols"
 	"lucky-sena/domain"
 	"reflect"
@@ -16,9 +15,9 @@ func makeMockedBets() []domain.Bet {
 	}
 }
 
-func makeSut() *betusecases.AnalyzeBet {
+func makeSut() *AnalyzeBet {
 	r := newFakeAnalyzeRepository()
-	return betusecases.NewAnalyzeBet(r)
+	return NewAnalyzeBet(r)
 }
 
 func TestNextBetCode(t *testing.T) {

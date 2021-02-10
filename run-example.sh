@@ -1,10 +1,14 @@
 ## Run tests
 
-go run ./... -v # To look for tests in all dirs and subdirs in this project
+go test ./... -v -c # To look for tests in all dirs and subdirs in this project verbose e coverage
 
-go run ./services -v # To run tests only in services package
+go test ./services -v# To run tests only in services package
 
-go test ./tests/...  -v # To run all tests in tests subfolders
+go test ./... -coverprofile cover.out  # To run all tests and take it cover.out
+
+go tool cover -html=cover.out # To see coverage profile
+
+
 
 ## Run with GO
 go run main/cmd/generate-bet/*.go --b=7 --e=11,12,13,14,16,20,22,33,34,35,36,37,41,42,45,52,53,55,57,60 --p
