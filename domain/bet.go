@@ -28,3 +28,15 @@ type BetAnalyzer interface {
 	NextBetCode() int
 	IsBetAlreadyWon([]int) bool
 }
+
+type BetSaver interface {
+	AddBet(Bet) BetModel
+}
+
+type BetInserter interface {
+	InsertBets([]Bet) error
+}
+
+type BetFinder interface {
+	Find() ([]Bet, error)
+}
