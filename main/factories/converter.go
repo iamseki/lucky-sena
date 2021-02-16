@@ -7,8 +7,8 @@ import (
 	"lucky-sena/infra/db/mongodb"
 )
 
-func NewBetToCsvConverter() domain.BetCsvConverter {
-	r := mongodb.NewFindBetMongoRepository()
+func NewResultsBetToCsvConverter() domain.BetCsvConverter {
+	r := mongodb.NewFindBetMongoRepository("results")
 	c := converter.NewBetToCsvConverter()
 
 	return betusecases.NewDbBetToCsv(r, c)

@@ -12,7 +12,7 @@ func NewAddBetUseCase() domain.BetSaver {
 }
 
 func NewFindBetsUseCase() domain.BetFinder {
-	findBetRepository := mongodb.NewFindBetMongoRepository()
+	findBetRepository := mongodb.NewFindBetMongoRepository("results")
 	return betusecases.NewFindBet(findBetRepository)
 }
 

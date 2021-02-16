@@ -8,30 +8,32 @@ import (
 )
 
 type FindBetMongoRepository struct {
-	Client *Mongo
+	Client     *Mongo
+	Collection string
 }
 
-func NewFindBetMongoRepository() *FindBetMongoRepository {
+func NewFindBetMongoRepository(collection string) *FindBetMongoRepository {
 	return &FindBetMongoRepository{
-		Client: newMongoConnection(),
+		Client:     newMongoConnection(),
+		Collection: collection,
 	}
 }
 
-func (a *FindBetMongoRepository) Find() ([]domain.Bet, error) {
-	resultsCollection := a.Client.getCollection("results")
+func (repo *FindBetMongoRepository) Find() ([]domain.Bet, error) {
+	resultsCollection := repo.Client.getCollection(repo.Collection)
 
 	findOptions := options.Find()
 	// Sort by `price` field descending
 	findOptions.SetSort(bson.D{{"code", -1}})
 
-	cursor, err := resultsCollection.Find(a.Client.Ctx, bson.D{}, findOptions)
+	cursor, err := resultsCollection.Find(repo.Client.Ctx, bson.D{}, findOptions)
 	if err != nil {
-		defer cursor.Close(a.Client.Ctx)
+		defer cursor.Close(repo.Client.Ctx)
 		return nil, err
 	}
 
 	var bets []domain.Bet
-	for cursor.Next(a.Client.Ctx) {
+	for cursor.Next(repo.Client.Ctx) {
 		var bet domain.Bet
 		cursor.Decode(&bet)
 		bets = append(bets, bet)
@@ -39,13 +41,13 @@ func (a *FindBetMongoRepository) Find() ([]domain.Bet, error) {
 	return bets, nil
 }
 
-func (a *FindBetMongoRepository) FindBetByCode(code int) (domain.Bet, error) {
-	resultsCollection := a.Client.getCollection("results")
+func (repo *FindBetMongoRepository) FindBetByCode(code int) (domain.Bet, error) {
+	resultsCollection := repo.Client.getCollection("results")
 	var bet domain.Bet
-	resultsCollection.FindOne(a.Client.Ctx, bson.M{"code": code}).Decode(bet)
+	resultsCollection.FindOne(repo.Client.Ctx, bson.M{"code": code}).Decode(bet)
 	return bet, nil
 }
 
-func (a *FindBetMongoRepository) FindBetsByNumbers(numbers []int) ([]domain.Bet, error) {
+func (repo *FindBetMongoRepository) FindBetsByNumbers(numbers []int) ([]domain.Bet, error) {
 	return nil, nil
 }
