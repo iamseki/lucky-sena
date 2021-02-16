@@ -1,12 +1,23 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"log"
 	"lucky-sena/domain"
 	"lucky-sena/main/factories"
+	"regexp"
 	"sync"
 )
+
+func validateFileExtension(filename string) error {
+	validExtension := regexp.MustCompile(`^.*\.(csv|xlsx)$`)
+
+	if isValid := validExtension.MatchString(filename); !isValid {
+		return errors.New("invalid filename extension -> recieved: " + filename + " expected: *.(csv|xlsx)")
+	}
+	return nil
+}
 
 func parseFlags(f *flags) {
 	flag.BoolVar(&f.concurrency, "concurrency", false, "persist to database if true")

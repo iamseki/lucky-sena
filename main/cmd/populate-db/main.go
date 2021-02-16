@@ -9,9 +9,14 @@ import (
 
 func main() {
 	p := factories.NewXLSXParser()
-	f, ok := os.LookupEnv("XLSX_FILE")
+	f, ok := os.LookupEnv("PARSE_FILE")
 	if !ok {
-		log.Println("XLSX_FILE must not be empty")
+		log.Fatalln("PARSE_FILE must not be empty")
+	}
+
+	err := validateFileExtension(f)
+	if err != nil {
+		log.Fatalln(err)
 	}
 
 	options := &flags{}
