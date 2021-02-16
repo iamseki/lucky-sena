@@ -11,6 +11,8 @@ func main() {
 	flag.StringVar(&collection, "collection", "results", "collection to be read")
 	flag.StringVar(&collection, "c", "results", "shortly flag to what collection to be read")
 
+	flag.Parse()
+
 	if collection == "results" {
 		c := factories.NewResultsBetToCsvConverter()
 		c.ConvertBetsToCsv()
