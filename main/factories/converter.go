@@ -9,7 +9,14 @@ import (
 
 func NewResultsBetToCsvConverter() domain.BetCsvConverter {
 	r := mongodb.NewFindBetMongoRepository("results")
-	c := converter.NewBetToCsvConverter()
+	c := converter.NewBetToCsvConverter("results")
+
+	return betusecases.NewDbBetToCsv(r, c)
+}
+
+func NewMadeBetToCsvConverter() domain.BetCsvConverter {
+	r := mongodb.NewFindBetMongoRepository("bets")
+	c := converter.NewBetToCsvConverter("bets")
 
 	return betusecases.NewDbBetToCsv(r, c)
 }

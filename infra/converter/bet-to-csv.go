@@ -11,15 +11,19 @@ import (
 	"time"
 )
 
-type BetToCsv struct{}
+type BetToCsv struct {
+	PrefixFilename string
+}
 
-func NewBetToCsvConverter() *BetToCsv {
-	return &BetToCsv{}
+func NewBetToCsvConverter(filename string) *BetToCsv {
+	return &BetToCsv{
+		PrefixFilename: filename,
+	}
 }
 
 func (bc *BetToCsv) Convert(bets []domain.Bet) error {
 	convertDate := time.Now().Format("2006-01-02")
-	filename := "results-csv-" + convertDate + ".csv"
+	filename := bc.PrefixFilename + "-csv-" + convertDate + ".csv"
 
 	file, err := os.Create(filename)
 	if err != nil {
