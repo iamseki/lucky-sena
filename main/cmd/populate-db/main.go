@@ -2,13 +2,13 @@ package main
 
 import (
 	"log"
+	"lucky-sena/domain"
 	"lucky-sena/infra/parser"
 	"lucky-sena/main/factories"
 	"os"
 )
 
 func main() {
-	p := factories.NewXLSXParser()
 	f, ok := os.LookupEnv("PARSE_FILE")
 	if !ok {
 		log.Fatalln("PARSE_FILE must not be empty")
@@ -21,11 +21,19 @@ func main() {
 
 	options := &flags{}
 	parseFlags(options)
-	bets := p.Parse(parser.Options{FileName: f})
+
+	var bets []domain.Bet
+	if options.extension == "csv" {
+		p := factories.NewCSVParser()
+		bets = p.Parse(parser.Options{FileName: f})
+	} else if options.extension == "xlsx" {
+		p := factories.NewXLSXParser()
+		bets = p.Parse(parser.Options{FileName: f})
+	}
 
 	if options.concurrency {
-		persist(persistIntoDatabaseConcurrently, bets, options.chunkSize)
+		persist(persistIntoDatabaseConcurrently, bets, options)
 	} else {
-		persist(persistIntoDatabase, bets, options.chunkSize)
+		persist(persistIntoDatabase, bets, options)
 	}
 }

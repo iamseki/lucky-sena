@@ -16,7 +16,7 @@ func NewFindBetsUseCase() domain.BetFinder {
 	return betusecases.NewFindBet(findBetRepository)
 }
 
-func NewInsertBetsUseCase() domain.BetInserter {
-	insertBetsRepository := mongodb.NewInsertBetsMongoRepository()
+func NewInsertBetsUseCase(collection string) domain.BetInserter {
+	insertBetsRepository := mongodb.NewInsertBetsMongoRepository(collection)
 	return betusecases.NewInsertBets(insertBetsRepository)
 }

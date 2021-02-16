@@ -5,17 +5,19 @@ import (
 )
 
 type InsertBetsMongoRepository struct {
-	Client *Mongo
+	Client     *Mongo
+	Collection string
 }
 
-func NewInsertBetsMongoRepository() *InsertBetsMongoRepository {
+func NewInsertBetsMongoRepository(collection string) *InsertBetsMongoRepository {
 	return &InsertBetsMongoRepository{
-		Client: newMongoConnection(),
+		Client:     newMongoConnection(),
+		Collection: collection,
 	}
 }
 
 func (m *InsertBetsMongoRepository) InsertMany(bets []domain.Bet) error {
-	resultCollection := m.Client.getCollection("results")
+	resultCollection := m.Client.getCollection(m.Collection)
 
 	docs := []interface{}{}
 	for _, bet := range bets {
