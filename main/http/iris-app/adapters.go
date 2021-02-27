@@ -2,12 +2,13 @@ package irisapp
 
 import (
 	"lucky-sena/infra/generator"
+	"lucky-sena/main/http/handlers"
 
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 )
 
-func newGenerateBetsIrisAdapter(generateBetsFn generateBetsHandler) context.Handler {
+func newGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) context.Handler {
 	return func(ctx iris.Context) {
 		var request struct {
 			Bets         int   `json:"bets"`

@@ -1,6 +1,6 @@
 package main
 
-import irisapp "lucky-sena/main/server/iris-app"
+import irisapp "lucky-sena/main/http/iris-app"
 
 func main() {
 	iris := irisapp.NewIrisApp()
