@@ -4,8 +4,8 @@ type AnalyzeBetMongoRepository struct {
 	FindBetMongoRepository
 }
 
-func NewAnalyzeBetMongoRepository() *AnalyzeBetMongoRepository {
+func NewAnalyzeBetMongoRepository(collection string) *AnalyzeBetMongoRepository {
 	return &AnalyzeBetMongoRepository{
-		FindBetMongoRepository{Client: newMongoConnection()},
+		FindBetMongoRepository{Client: newMongoConnection(), Collection: collection},
 	}
 }

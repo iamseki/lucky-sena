@@ -6,7 +6,7 @@ import (
 	"lucky-sena/infra/db/mongodb"
 )
 
-func NewAnalyzeBetUseCase() domain.BetAnalyzer {
-	analyzeBetRepository := mongodb.NewAnalyzeBetMongoRepository()
+func NewAnalyzeBetUseCase(collection string) domain.BetAnalyzer {
+	analyzeBetRepository := mongodb.NewAnalyzeBetMongoRepository(collection)
 	return betusecases.NewAnalyzeBet(analyzeBetRepository)
 }

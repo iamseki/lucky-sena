@@ -15,7 +15,7 @@ func main() {
 	options := &flags{}
 	parseFlags(options)
 	if options.gameCode == 0 {
-		analyzeBet := factories.NewAnalyzeBetUseCase()
+		analyzeBet := factories.NewAnalyzeBetUseCase("results")
 		options.gameCode = analyzeBet.NextBetCode()
 	}
 

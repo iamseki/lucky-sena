@@ -22,8 +22,11 @@ CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o generate-bet.exe main/cmd/ge
 ## COMPILE scrapper FOR LINUX
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o scraper main/cmd/scraping/*.go
 
-## COMPILE scrapper FOR LINUX
+## COMPILE converter FOR LINUX
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o converter main/cmd/converter/*.go
+
+## COMPILE populate-db FOR LINUX
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o populate-db main/cmd/populate-db/*.go
 
 ## COMPILE CUSTOM OUTPUT
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o randomNameBin cmd/cli/main.go
