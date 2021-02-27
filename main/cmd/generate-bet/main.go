@@ -14,7 +14,7 @@ func main() {
 
 	options := &flags{}
 	parseFlags(options)
-	if options.gameCode == 0 {
+	if options.gameCode == 0 && options.persist {
 		analyzeBet := factories.NewAnalyzeBetUseCase("results")
 		options.gameCode = analyzeBet.NextBetCode()
 	}
