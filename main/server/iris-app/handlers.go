@@ -1,4 +1,4 @@
-package main
+package irisapp
 
 import (
 	"lucky-sena/infra/generator"

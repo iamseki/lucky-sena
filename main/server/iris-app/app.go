@@ -1,8 +1,8 @@
-package main
+package irisapp
 
 import "github.com/kataras/iris/v12"
 
-func newIrisApp() *iris.Application {
+func NewIrisApp() *iris.Application {
 	app := iris.New()
 
 	routesV1 := app.Party("/api/v1")
