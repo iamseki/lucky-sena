@@ -19,12 +19,13 @@ func main() {
 		options.gameCode = analyzeBet.NextBetCode()
 	}
 
-	addBetUseCase := factories.NewAddBetUseCase()
 	betsGenerated := generateBets(options)
 
 	if options.persist {
 		wg.Add(len(betsGenerated))
 		log.Println("Persisting generated bets into database")
+
+		addBetUseCase := factories.NewAddBetUseCase()
 		for _, b := range betsGenerated {
 			go func(b generator.GenaretedBet) {
 				defer wg.Done()
@@ -32,6 +33,7 @@ func main() {
 			}(b)
 		}
 		wg.Wait()
+
 		log.Println("Bets persisted into database !")
 	} else {
 		log.Println("Bets generated: \n", betsGenerated)
