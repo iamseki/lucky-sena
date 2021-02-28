@@ -1,6 +1,7 @@
 package irisapp
 
 import (
+	"log"
 	"lucky-sena/main/http/handlers"
 	"os"
 
@@ -26,6 +27,10 @@ func NewIrisApp() *iris.Application {
 	{
 		routesV1.Use(auth)
 		routesV1.Post("/generate", newGenerateBetsIrisAdapter(handlers.GenerateBetsHandle))
+	}
+
+	if err := app.Build(); err != nil {
+		log.Fatalln(err)
 	}
 
 	return app

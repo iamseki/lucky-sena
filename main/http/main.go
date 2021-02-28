@@ -11,10 +11,6 @@ import (
 func main() {
 	app := irisapp.NewIrisApp()
 
-	if err := app.Build(); err != nil {
-		log.Fatalln(err)
-	}
-
 	port, ok := os.LookupEnv("PORT")
 	if !ok {
 		port = "8080"
