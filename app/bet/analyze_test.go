@@ -23,7 +23,7 @@ func makeSut() *AnalyzeBet {
 func TestNextBetCode(t *testing.T) {
 	sut := makeSut()
 
-	nextGame := sut.NextBetCode()
+	nextGame, _ := sut.NextBetCode()
 
 	if nextGame != 3 {
 		t.Error("expect bet to be 3 but got", nextGame)

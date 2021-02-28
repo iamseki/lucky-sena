@@ -25,7 +25,7 @@ type BetCsvConverter interface {
 }
 
 type BetAnalyzer interface {
-	NextBetCode() int
+	NextBetCode() (int, error)
 	IsBetAlreadyWon([]int) bool
 }
 

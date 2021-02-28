@@ -21,7 +21,7 @@ func main() {
 		Addr:         addr,
 		Handler:      app,
 		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 10 * time.Second,
+		WriteTimeout: 30 * time.Second,
 	}
 	log.Println(`listen on`, addr)
 	log.Fatalln(srv.ListenAndServe())

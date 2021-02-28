@@ -28,7 +28,7 @@ func (repo *FindBetMongoRepository) Find() ([]domain.Bet, error) {
 
 	cursor, err := resultsCollection.Find(repo.Client.Ctx, bson.D{}, findOptions)
 	if err != nil {
-		defer cursor.Close(repo.Client.Ctx)
+		//defer cursor.Close(repo.Client.Ctx)
 		return nil, err
 	}
 

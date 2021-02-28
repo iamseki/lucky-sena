@@ -13,12 +13,12 @@ func NewAnalyzeBet(repository protocols.AnalyzeBetRepository) *AnalyzeBet {
 	return &AnalyzeBet{repository}
 }
 
-func (analyze *AnalyzeBet) NextBetCode() int {
+func (analyze *AnalyzeBet) NextBetCode() (int, error) {
 	bets, err := analyze.betRepository.Find()
 	if err != nil {
-		log.Fatalln(err)
+		return -1, err
 	}
-	return len(bets) + 1
+	return len(bets) + 1, nil
 }
 
 func (analyze *AnalyzeBet) IsBetAlreadyWon(numbers []int) bool {

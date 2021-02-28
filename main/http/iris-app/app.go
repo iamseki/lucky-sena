@@ -23,6 +23,7 @@ func NewIrisApp() *iris.Application {
 		Realm: "Authorization Required",
 	})
 
+	app.Get("/hc", func(ctx iris.Context) { ctx.JSON(map[string]string{"health": "ok"}) })
 	routesV1 := app.Party("/api/v1")
 	{
 		routesV1.Use(auth)
