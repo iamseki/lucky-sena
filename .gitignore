@@ -17,3 +17,5 @@ populate-db
 .vscode
 
 cover.out
+
+__debug_*
