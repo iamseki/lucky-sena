@@ -1,8 +1,32 @@
 package main
 
-import irisapp "lucky-sena/main/http/iris-app"
+import (
+	"log"
+	irisapp "lucky-sena/main/http/iris-app"
+	"net/http"
+	"os"
+	"time"
+)
 
 func main() {
 	app := irisapp.NewIrisApp()
-	app.Listen(":8080")
+
+	if err := app.Build(); err != nil {
+		log.Fatalln(err)
+	}
+
+	port, ok := os.LookupEnv("PORT")
+	if !ok {
+		port = "8080"
+	}
+
+	addr := `localhost:` + port
+	srv := &http.Server{
+		Addr:         addr,
+		Handler:      app,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+	log.Println(`listen on`, addr)
+	log.Fatalln(srv.ListenAndServe())
 }
