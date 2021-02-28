@@ -24,14 +24,13 @@ func newMongoConnection() *Mongo {
 	if !declared {
 		mongoConn = "mongodb://localhost:27017"
 	}
-	log.Printf("Trying to connect in %v\n", mongoConn)
 
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongoConn))
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
-	log.Printf("App is connected to MongoDB !")
+	log.Println("New client connection at:", mongoConn)
 	return &Mongo{client, ctx, "sena"}
 }
 
