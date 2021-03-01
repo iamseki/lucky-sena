@@ -28,7 +28,6 @@ func newGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) con
 		generatedBets := generateBetsFn(request.Bets, request.ExcludedBets)
 		response.Bets = generatedBets
 
-		addBetUseCase := factories.NewAddBetUseCase()
 		nextBetCodeUseCase := factories.NewAnalyzeBetUseCase("results")
 		code, err := nextBetCodeUseCase.NextBetCode()
 		if err != nil {
@@ -36,6 +35,7 @@ func newGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) con
 			ctx.JSON(map[string]string{"error": err.Error()})
 			return
 		}
+		addBetUseCase := factories.NewAddBetUseCase()
 		for _, b := range generatedBets {
 			addBetUseCase.AddBet(domain.Bet{Numbers: b.Numbers, Code: code, Date: time.Now()})
 		}
