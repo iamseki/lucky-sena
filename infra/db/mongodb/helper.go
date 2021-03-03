@@ -48,6 +48,5 @@ func getMongoConnection(uri string) context.Context {
 		}
 		return ctx
 	}
-	log.Println("Using active mongo connection")
 	return ctx
 }

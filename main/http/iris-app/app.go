@@ -11,7 +11,7 @@ import (
 
 // NewIrisApp returns an instance of iris app
 func NewIrisApp() *iris.Application {
-	app := iris.New()
+	app := iris.Default()
 
 	username := os.Getenv("API_BASIC_USERNAME")
 	password := os.Getenv("API_BASIC_PASSWORD")
