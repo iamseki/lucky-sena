@@ -24,6 +24,7 @@ func GenerateBetsHandle(bets int, excludeds []int) []generator.GenaretedBet {
 	return gen.Generate(generator.Options{BetsToGenerate: bets, ExcludedNumbers: excludeds})
 }
 
+// ValidateRequestBets validates the request body of the request
 func ValidateRequestBets(req *RequestBetsHandle) error {
 	if req.Bets == 0 || req.ExcludedBets == nil {
 		return generateBetError{message: "invalid request body"}
