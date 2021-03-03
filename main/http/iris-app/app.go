@@ -33,7 +33,7 @@ func NewIrisApp() *iris.Application {
 		routesV1.Use(logger.New())
 		routesV1.Use(auth)
 
-		routesV1.Post("/generate", newGenerateBetsIrisAdapter(handlers.GenerateBetsHandle))
+		routesV1.Post("/bets/generate", newGenerateBetsIrisAdapter(handlers.GenerateBetsHandle))
 	}
 
 	if err := app.Build(); err != nil {
