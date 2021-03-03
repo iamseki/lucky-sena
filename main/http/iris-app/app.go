@@ -15,7 +15,6 @@ import (
 func NewIrisApp() *iris.Application {
 	app := iris.New()
 	app.Use(cors.Default())
-	iris.Default()
 
 	username := os.Getenv("API_BASIC_USERNAME")
 	password := os.Getenv("API_BASIC_PASSWORD")
