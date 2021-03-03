@@ -18,6 +18,7 @@ populate-db
 
 cover.out
 
+access.log
 __debug_*
 
 api
