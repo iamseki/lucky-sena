@@ -1,7 +1,6 @@
 package betusecases
 
 import (
-	"log"
 	"lucky-sena/app/protocols"
 )
 
@@ -21,10 +20,10 @@ func (analyze *AnalyzeBet) NextBetCode() (int, error) {
 	return len(bets) + 1, nil
 }
 
-func (analyze *AnalyzeBet) IsBetAlreadyWon(numbers []int) bool {
+func (analyze *AnalyzeBet) IsBetAlreadyWon(numbers []int) (bool, error) {
 	bets, err := analyze.betRepository.FindBetsByNumbers(numbers)
 	if err != nil {
-		log.Fatalln(err)
+		return false, err
 	}
-	return len(bets) > 0
+	return len(bets) > 0, nil
 }
