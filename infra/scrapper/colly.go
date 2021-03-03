@@ -15,7 +15,7 @@ func NewCollyScrapper() *CollyScrapper {
 	return &CollyScrapper{}
 }
 
-func (s *CollyScrapper) Scrap(endpoint string) domain.Bet {
+func (s *CollyScrapper) Scrap(endpoint string) (domain.Bet, error) {
 	c := colly.NewCollector()
 	var gameCode int
 	var numbers []int
@@ -50,5 +50,5 @@ func (s *CollyScrapper) Scrap(endpoint string) domain.Bet {
 	wg.Wait()
 
 	b := domain.Bet{Numbers: numbers, Code: gameCode, Date: date}
-	return b
+	return b, nil
 }

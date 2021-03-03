@@ -9,7 +9,7 @@ type LastGameScrapper struct {
 	Scraper protocols.BetScraper
 }
 
-func (s *LastGameScrapper) Scrap(url string) domain.Bet {
+func (s *LastGameScrapper) Scrap(url string) (domain.Bet, error) {
 	return s.Scraper.Scrap(url)
 }
 
