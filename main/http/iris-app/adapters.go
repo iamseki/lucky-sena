@@ -28,8 +28,8 @@ func newGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) con
 		generatedBets := generateBetsFn(request.Bets, request.ExcludedBets)
 		response.Bets = generatedBets
 
-		nextBetCodeUseCase := factories.NewAnalyzeBetUseCase("results")
-		code, err := nextBetCodeUseCase.NextBetCode()
+		analyzeBetUseCase := factories.NewAnalyzeBetUseCase("results")
+		code, err := analyzeBetUseCase.NextBetCode()
 		if err != nil {
 			ctx.StatusCode(500)
 			ctx.JSON(map[string]string{"error": err.Error()})
