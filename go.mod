@@ -17,4 +17,5 @@ require (
 	github.com/kataras/iris/v12 v12.2.0-alpha2
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.4.4
+	google.golang.org/protobuf v1.25.0
 )

@@ -30,7 +30,7 @@ type BetAnalyzer interface {
 }
 
 type BetSaver interface {
-	AddBet(Bet) BetModel
+	AddBet(Bet) (BetModel, error)
 }
 
 type BetInserter interface {

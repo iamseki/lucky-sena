@@ -1,7 +1,6 @@
 package betusecases
 
 import (
-	"log"
 	"lucky-sena/app/protocols"
 	"lucky-sena/domain"
 )
@@ -14,10 +13,10 @@ func NewAddBet(repository protocols.AddBetRepository) *DbAddBet {
 	return &DbAddBet{Repository: repository}
 }
 
-func (db *DbAddBet) AddBet(bet domain.Bet) domain.BetModel {
+func (db *DbAddBet) AddBet(bet domain.Bet) (domain.BetModel, error) {
 	createdBet, err := db.Repository.Add(bet)
 	if err != nil {
-		log.Fatalln(err)
+		return domain.BetModel{}, err
 	}
-	return createdBet
+	return createdBet, nil
 }
