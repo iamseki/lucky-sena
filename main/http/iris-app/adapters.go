@@ -13,8 +13,13 @@ import (
 func newGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) context.Handler {
 	return func(ctx iris.Context) {
 		request := &handlers.RequestBetsHandle{}
+<<<<<<< HEAD
 		err := ctx.ReadJSON(&request)
 		if err := handlers.ValidateRequestBets(request); err != nil {
+=======
+		ctx.ReadJSON(&request)
+		if request.Bets == 0 || request.ExcludedBets == nil {
+>>>>>>> 346cfe7458b9658c6a96f47123ce1c7c2c4b74cf
 			badRequest(ctx)
 			return
 		}
