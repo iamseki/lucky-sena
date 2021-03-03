@@ -2,7 +2,6 @@ package irisapp
 
 import (
 	"lucky-sena/domain"
-	"lucky-sena/infra/generator"
 	"lucky-sena/main/factories"
 	"lucky-sena/main/http/handlers"
 	"time"
@@ -13,12 +12,9 @@ import (
 
 func newGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) context.Handler {
 	return func(ctx iris.Context) {
-		var request struct {
-			Bets         int   `json:"bets"`
-			ExcludedBets []int `json:"excludeds"`
-		}
-		ctx.ReadJSON(&request)
-		if request.Bets == 0 || request.ExcludedBets == nil {
+		request := &handlers.RequestBetsHandle{}
+		err := ctx.ReadJSON(&request)
+		if err := handlers.ValidateRequestBets(request); err != nil {
 			badRequest(ctx)
 			return
 		}
@@ -36,10 +32,7 @@ func newGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) con
 			addBetUseCase.AddBet(domain.Bet{Numbers: b.Numbers, Code: code, Date: time.Now()})
 		}
 
-		var response struct {
-			Bets []generator.GenaretedBet
-		}
-		response.Bets = generatedBets
+		response := &handlers.ResponseBetsHandle{Bets: generatedBets}
 		ctx.JSON(response)
 	}
 }
