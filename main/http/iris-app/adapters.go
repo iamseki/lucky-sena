@@ -19,20 +19,19 @@ func newGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) con
 		}
 		ctx.ReadJSON(&request)
 		if request.Bets == 0 || request.ExcludedBets == nil {
-			ctx.StatusCode(400)
+			badRequest(ctx)
 			return
 		}
 
-		generatedBets := generateBetsFn(request.Bets, request.ExcludedBets)
 		analyzeBetUseCase := factories.NewAnalyzeBetUseCase("results")
 		code, err := analyzeBetUseCase.NextBetCode()
 		if err != nil {
-			ctx.StatusCode(500)
-			ctx.JSON(map[string]string{"error": err.Error()})
+			serverError(ctx, err)
 			return
 		}
 
 		addBetUseCase := factories.NewAddBetUseCase()
+		generatedBets := generateBetsFn(request.Bets, request.ExcludedBets)
 		for _, b := range generatedBets {
 			addBetUseCase.AddBet(domain.Bet{Numbers: b.Numbers, Code: code, Date: time.Now()})
 		}
