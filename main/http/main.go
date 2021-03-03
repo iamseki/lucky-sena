@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	app := irisapp.NewIrisApp()
+	app := irisapp.New()
 
 	port, ok := os.LookupEnv("PORT")
 	if !ok {

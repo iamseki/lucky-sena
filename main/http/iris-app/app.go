@@ -11,8 +11,8 @@ import (
 	"github.com/kataras/iris/v12/middleware/logger"
 )
 
-// NewIrisApp returns an instance of iris app
-func NewIrisApp() *iris.Application {
+// New returns an instance of iris app
+func New() *iris.Application {
 	app := iris.New()
 	app.Use(cors.Default())
 
