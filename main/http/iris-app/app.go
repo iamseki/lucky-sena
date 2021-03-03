@@ -29,9 +29,10 @@ func NewIrisApp() *iris.Application {
 
 	app.Get("/hc", func(ctx iris.Context) { ctx.JSON(map[string]string{"health": "ok"}) })
 	routesV1 := app.Party("/api/v1")
-	routesV1.Use(logger.New())
 	{
+		routesV1.Use(logger.New())
 		routesV1.Use(auth)
+
 		routesV1.Post("/generate", newGenerateBetsIrisAdapter(handlers.GenerateBetsHandle))
 	}
 
