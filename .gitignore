@@ -1,26 +1,29 @@
+# scripts
 run.sh
-lucky-sena-cli
-lucky-sena-cli.exe
-
-bets*
-
-last-results.html
-mocks
+scripts/
 mega_sena*
 senaAnalise*.js
 
+# bins
+lucky-sena-cli
+lucky-sena-cli.exe
+bets*
 scraper
 generate-bet
 populate-db
-*.csv
+api
 
-.vscode
+# test
+last-results.html
+mocks
 
 cover.out
 
-access.log
+# files
+*.csv
+
+# vscode
+.vscode
 __debug_*
+access.log
 
-api
-
-scripts
