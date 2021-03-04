@@ -6,15 +6,15 @@ import (
 )
 
 type DbInsertBets struct {
-	Repository protocols.InsertBetsRepository
+	repository protocols.InsertBetsRepository
 }
 
 func NewInsertBets(repository protocols.InsertBetsRepository) *DbInsertBets {
-	return &DbInsertBets{Repository: repository}
+	return &DbInsertBets{repository}
 }
 
 func (db *DbInsertBets) InsertBets(bets []domain.Bet) error {
-	err := db.Repository.InsertMany(bets)
+	err := db.repository.InsertMany(bets)
 	if err != nil {
 		return err
 	}

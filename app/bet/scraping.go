@@ -6,15 +6,15 @@ import (
 )
 
 type LastGameScrapper struct {
-	Scraper protocols.BetScraper
+	scraper protocols.BetScraper
 }
 
 func (s *LastGameScrapper) Scrap(url string) (domain.Bet, error) {
-	return s.Scraper.Scrap(url)
+	return s.scraper.Scrap(url)
 }
 
 func NewLastBetScrapper(b protocols.BetScraper) *LastGameScrapper {
 	return &LastGameScrapper{
-		Scraper: b,
+		scraper: b,
 	}
 }

@@ -6,15 +6,15 @@ import (
 )
 
 type DbAddBet struct {
-	Repository protocols.AddBetRepository
+	repository protocols.AddBetRepository
 }
 
 func NewAddBet(repository protocols.AddBetRepository) *DbAddBet {
-	return &DbAddBet{Repository: repository}
+	return &DbAddBet{repository}
 }
 
 func (db *DbAddBet) AddBet(bet domain.Bet) (domain.BetModel, error) {
-	createdBet, err := db.Repository.Add(bet)
+	createdBet, err := db.repository.Add(bet)
 	if err != nil {
 		return domain.BetModel{}, err
 	}

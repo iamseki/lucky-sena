@@ -3,23 +3,23 @@ package betusecases
 import "lucky-sena/app/protocols"
 
 type DbBetToCsv struct {
-	Repository protocols.FindBetRepository
-	BetToCsv   protocols.CSVConverter
+	repository protocols.FindBetRepository
+	betToCsv   protocols.CSVConverter
 }
 
 func NewDbBetToCsv(r protocols.FindBetRepository, c protocols.CSVConverter) *DbBetToCsv {
 	return &DbBetToCsv{
-		Repository: r,
-		BetToCsv:   c,
+		repository: r,
+		betToCsv:   c,
 	}
 }
 
 func (usecase *DbBetToCsv) ConvertBetsToCsv() error {
-	bets, err := usecase.Repository.Find()
+	bets, err := usecase.repository.Find()
 	if err != nil {
 		return err
 	}
-	err = usecase.BetToCsv.Convert(bets)
+	err = usecase.betToCsv.Convert(bets)
 	if err != nil {
 		return err
 	}
