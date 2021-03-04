@@ -11,6 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
+// Mongo represents an mongo connection properties
 type Mongo struct {
 	Client   *mongo.Client
 	Ctx      context.Context

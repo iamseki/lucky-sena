@@ -18,6 +18,7 @@ func newXlsxExcelizeParser() *XlsxParser {
 	return &XlsxParser{}
 }
 
+// Parse just parse csv accordlying to options
 func (xw *XlsxParser) Parse(options Options) []domain.Bet {
 	file, err := excelize.OpenFile(options.FileName)
 	if err != nil {

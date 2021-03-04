@@ -11,16 +11,19 @@ import (
 	"time"
 )
 
+// BetToCsv represents an struct who knows how to Convert Bets to Csv
 type BetToCsv struct {
 	PrefixFilename string
 }
 
+// NewBetToCsvConverter returns an instance of BetToCsv struct
 func NewBetToCsvConverter(filename string) *BetToCsv {
 	return &BetToCsv{
 		PrefixFilename: filename,
 	}
 }
 
+// Convert converts all bets in csv format
 func (bc *BetToCsv) Convert(bets []domain.Bet) error {
 	convertDate := time.Now().Format("2006-01-02")
 	filename := bc.PrefixFilename + "-csv-" + convertDate + ".csv"

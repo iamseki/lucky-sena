@@ -9,12 +9,15 @@ import (
 	"github.com/gocolly/colly"
 )
 
+// CollyScrapper represents a struct that use Colly lib to scrapping
 type CollyScrapper struct{}
 
+// NewCollyScrapper returns an instance of CollyScrapper struct
 func NewCollyScrapper() *CollyScrapper {
 	return &CollyScrapper{}
 }
 
+// Scrap scrapping a endpoint to fetch the last result of MegaSena
 func (s *CollyScrapper) Scrap(endpoint string) (domain.Bet, error) {
 	c := colly.NewCollector()
 	var gameCode int

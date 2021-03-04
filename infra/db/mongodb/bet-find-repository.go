@@ -7,11 +7,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// FindBetMongoRepository knows how to find bets in MongoDB database
 type FindBetMongoRepository struct {
 	Client     *Mongo
 	Collection string
 }
 
+// NewFindBetMongoRepository returns an instance of FindBetMongoRepository
 func NewFindBetMongoRepository(collection string) *FindBetMongoRepository {
 	return &FindBetMongoRepository{
 		Client:     newMongoConnection(),
@@ -19,6 +21,7 @@ func NewFindBetMongoRepository(collection string) *FindBetMongoRepository {
 	}
 }
 
+// Find all bets in database
 func (repo *FindBetMongoRepository) Find() ([]domain.Bet, error) {
 	resultsCollection := repo.Client.getCollection(repo.Collection)
 
@@ -41,6 +44,7 @@ func (repo *FindBetMongoRepository) Find() ([]domain.Bet, error) {
 	return bets, nil
 }
 
+// FindBetByCode find bets by game code in results collection
 func (repo *FindBetMongoRepository) FindBetByCode(code int) (domain.Bet, error) {
 	resultsCollection := repo.Client.getCollection("results")
 	var bet domain.Bet
@@ -48,6 +52,7 @@ func (repo *FindBetMongoRepository) FindBetByCode(code int) (domain.Bet, error) 
 	return bet, nil
 }
 
+// FindBetsByNumbers find bets by numbers passed through params
 func (repo *FindBetMongoRepository) FindBetsByNumbers(numbers []int) ([]domain.Bet, error) {
 	return nil, nil
 }

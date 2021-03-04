@@ -11,16 +11,18 @@ import (
 	"time"
 )
 
+// CsvBetParser represents an struct that knows how to parse Csv
 type CsvBetParser struct{}
 
 func newCsvParser() *CsvBetParser {
 	return &CsvBetParser{}
 }
 
+// Parse just parse csv based on options passed by args
 func (p *CsvBetParser) Parse(options Options) []domain.Bet {
 	var bets []domain.Bet
 	standardSampleLayout := "2006-01-02"
-	NUMBERS_INDEX, CODE_INDEX, DATE_INDEX := 0, 1, 2
+	NumbersIndex, CodeIndex, DateIndex := 0, 1, 2
 
 	r, os := getCSVReader(options.FileName)
 	defer os.Close()
@@ -33,9 +35,9 @@ func (p *CsvBetParser) Parse(options Options) []domain.Bet {
 			break
 		}
 
-		date := parseDate(record[DATE_INDEX], standardSampleLayout)
-		code := parseInt(record[CODE_INDEX])
-		numbers := parseNumbers(record[NUMBERS_INDEX])
+		date := parseDate(record[DateIndex], standardSampleLayout)
+		code := parseInt(record[CodeIndex])
+		numbers := parseNumbers(record[NumbersIndex])
 		bets = append(bets, domain.Bet{Code: code, Date: date, Numbers: numbers})
 	}
 

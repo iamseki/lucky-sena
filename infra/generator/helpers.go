@@ -14,6 +14,7 @@ func containValue(numbers []int, value int) bool {
 	return false
 }
 
+// ConvertCSVIntoIntSlice covert some string separeted by commas into an int slice
 func ConvertCSVIntoIntSlice(csvString string) []int {
 	separetedByComma := strings.Split(csvString, ",")
 	var intSlice []int

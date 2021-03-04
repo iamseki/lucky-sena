@@ -1,14 +1,16 @@
 package generator
 
-type GeneratorType string
+// Type is the type of instance to be used to generate numbers
+type Type string
 
 // types available of Generators
 const (
-	Default   GeneratorType = "default"
-	CustomBar               = "customBar"
+	Default   Type = "default"
+	CustomBar      = "customBar"
 )
 
-func Factory(t GeneratorType) Generator {
+// Factory returns an instance that knows how to generate numbers accordlying to t Type
+func Factory(t Type) Generator {
 	switch t {
 	case Default:
 		return newDefaultGenerator()

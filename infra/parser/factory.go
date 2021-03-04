@@ -1,14 +1,17 @@
 package parser
 
-type ParserType string
+// Type is the type of instance to be used to generate numbers
+type Type string
 
+// defaults types that can be used to inject the parser
 const (
-	Default      ParserType = "default"
-	XlsxExcelize            = "xlsxExcelize"
-	CSV                     = "csv"
+	Default      Type = "default"
+	XlsxExcelize      = "xlsxExcelize"
+	CSV               = "csv"
 )
 
-func Factory(pt ParserType) Parser {
+// Factory returns an instance that knows how to parse csv accordlying to t Type
+func Factory(pt Type) Parser {
 	switch pt {
 	case XlsxExcelize:
 		return newXlsxExcelizeParser()
