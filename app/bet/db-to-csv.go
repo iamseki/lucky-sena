@@ -2,11 +2,13 @@ package betusecases
 
 import "lucky-sena/app/protocols"
 
+// DbBetToCsv represents a struct that implements domain.BetCsvConverter interface
 type DbBetToCsv struct {
 	repository protocols.FindBetRepository
 	betToCsv   protocols.CSVConverter
 }
 
+// NewDbBetToCsv returns an instance of DbBetToCsv struct
 func NewDbBetToCsv(r protocols.FindBetRepository, c protocols.CSVConverter) *DbBetToCsv {
 	return &DbBetToCsv{
 		repository: r,
@@ -14,6 +16,7 @@ func NewDbBetToCsv(r protocols.FindBetRepository, c protocols.CSVConverter) *DbB
 	}
 }
 
+// ConvertBetsToCsv converts all bets in the database to a csv format
 func (usecase *DbBetToCsv) ConvertBetsToCsv() error {
 	bets, err := usecase.repository.Find()
 	if err != nil {
