@@ -14,6 +14,8 @@ func newDefaultGenerator() Generator {
 }
 
 func (generator *defaultGenerator) Generate(options Options) []GenaretedBet {
+	s := rand.NewSource(time.Now().UnixNano())
+	random := rand.New(s)
 	var wg sync.WaitGroup
 	var bets []GenaretedBet
 
@@ -22,8 +24,6 @@ func (generator *defaultGenerator) Generate(options Options) []GenaretedBet {
 		go func(c int) {
 			defer wg.Done()
 			numbers := make([]int, 6)
-			s := rand.NewSource(time.Now().UnixNano())
-			random := rand.New(s)
 			generateNumbers(numbers, random, options.ExcludedNumbers)
 			bets = append(bets, GenaretedBet{numbers})
 		}(c)
