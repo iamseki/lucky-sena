@@ -4,13 +4,14 @@ import (
 	"lucky-sena/domain"
 	"lucky-sena/main/factories"
 	"lucky-sena/main/http/handlers"
+	"strconv"
 	"time"
 
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 )
 
-func newGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) context.Handler {
+func newPostGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) context.Handler {
 	return func(ctx iris.Context) {
 		request := &handlers.RequestBetsHandle{}
 		err := ctx.ReadJSON(&request)
@@ -32,6 +33,20 @@ func newGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) con
 			addBetUseCase.AddBet(domain.Bet{Numbers: b.Numbers, Code: code, Date: time.Now()})
 		}
 
+		response := &handlers.ResponseBetsHandle{Bets: generatedBets}
+		ctx.JSON(response)
+	}
+}
+
+func newGetGenerateBetsIrisAdapter(generateBetsFn handlers.GenerateBetsHandler) context.Handler {
+	return func(ctx iris.Context) {
+		bets, err := strconv.Atoi(ctx.URLParamDefault("bets", "1"))
+		if err != nil {
+			badRequest(ctx)
+			return
+		}
+
+		generatedBets := generateBetsFn(bets, []int{})
 		response := &handlers.ResponseBetsHandle{Bets: generatedBets}
 		ctx.JSON(response)
 	}

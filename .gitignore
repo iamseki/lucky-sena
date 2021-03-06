@@ -21,6 +21,7 @@ cover.out
 
 # files
 *.csv
+users.yml
 
 # vscode
 .vscode

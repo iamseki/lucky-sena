@@ -2,7 +2,6 @@ package irisapp
 
 import (
 	"lucky-sena/main/http/handlers"
-	"os"
 
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris/v12"
@@ -20,17 +19,13 @@ func setupRoutesAndMiddlewares(app *iris.Application) {
 	v1.Use(logger.New())
 	v1.Use(setupAuth())
 
-	v1.Post("/bets/generate", newGenerateBetsIrisAdapter(handlers.GenerateBetsHandle))
+	v1.Post("/bets/generate", newPostGenerateBetsIrisAdapter(handlers.GenerateBetsHandle))
+	v1.Get("/bets/generate", newGetGenerateBetsIrisAdapter(handlers.GenerateBetsHandle))
 }
 
 func setupAuth() context.Handler {
-	username := os.Getenv("API_BASIC_USERNAME")
-	password := os.Getenv("API_BASIC_PASSWORD")
-
 	return basicauth.New(basicauth.Options{
-		Allow: basicauth.AllowUsers(map[string]string{
-			username: password,
-		}),
+		Allow: basicauth.AllowUsersFile("users.yml", basicauth.BCRYPT),
 		Realm: "Authorization Required",
 	})
 }
