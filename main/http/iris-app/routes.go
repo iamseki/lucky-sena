@@ -15,7 +15,7 @@ func setupRoutesAndMiddlewares(app *iris.Application) {
 	app.Use(cors.Default())
 	app.Get("/hc", func(ctx iris.Context) { ctx.JSON(map[string]string{"health": "ok"}) })
 
-	v1 := app.Party("/api/v1")
+	v1 := app.Party("/v1")
 
 	v1.Use(logger.New())
 	v1.Use(setupAuth())
