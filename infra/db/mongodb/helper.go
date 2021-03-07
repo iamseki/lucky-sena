@@ -45,7 +45,7 @@ func getMongoConnection(uri string) context.Context {
 			mongoClient = nil
 			getMongoConnection(uri)
 		} else {
-			log.Println("Connected into mongodb: ", uri)
+			log.Println("Connected into mongodb")
 		}
 		return ctx
 	}
