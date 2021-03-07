@@ -16,7 +16,7 @@ func main() {
 		port = "8080"
 	}
 
-	addr := `localhost:` + port
+	addr := `:` + port
 	srv := &http.Server{
 		Addr:         addr,
 		Handler:      app,
