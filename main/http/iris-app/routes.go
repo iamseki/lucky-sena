@@ -2,6 +2,7 @@ package irisapp
 
 import (
 	"lucky-sena/main/http/handlers"
+	"os"
 
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris/v12"
@@ -24,8 +25,13 @@ func setupRoutesAndMiddlewares(app *iris.Application) {
 }
 
 func setupAuth() context.Handler {
+	username := os.Getenv("API_BASIC_USERNAME")
+	password := os.Getenv("API_BASIC_PASSWORD")
+
 	return basicauth.New(basicauth.Options{
-		Allow: basicauth.AllowUsersFile("users.yml", basicauth.BCRYPT),
+		Allow: basicauth.AllowUsers(map[string]string{
+			username: password,
+		}),
 		Realm: "Authorization Required",
 	})
 }
