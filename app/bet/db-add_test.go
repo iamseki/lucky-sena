@@ -1,6 +1,7 @@
-package betusecases
+package betusecases_test
 
 import (
+	betusecases "lucky-sena/app/bet"
 	"lucky-sena/domain"
 	"testing"
 	"time"
@@ -8,14 +9,6 @@ import (
 
 type fakeAddRepository struct {
 	AddFn func(b domain.Bet) (domain.BetModel, error)
-}
-
-type mockAddError struct {
-	message string
-}
-
-func (e *mockAddError) Error() string {
-	return e.message
 }
 
 func newFakeAddRepository() *fakeAddRepository {
@@ -36,7 +29,7 @@ func (fr *fakeAddRepository) Add(b domain.Bet) (domain.BetModel, error) {
 }
 func TestAddBetSuccess(t *testing.T) {
 	r := newFakeAddRepository()
-	a := NewAddBet(r)
+	a := betusecases.NewAddBet(r)
 
 	bet, _ := a.AddBet(domain.Bet{
 		Numbers: []int{1, 2, 3, 4, 5, 6},
@@ -52,9 +45,9 @@ func TestAddBetSuccess(t *testing.T) {
 func TestAddBetFails(t *testing.T) {
 	r := newFakeAddRepository()
 	r.AddFn = func(b domain.Bet) (domain.BetModel, error) {
-		return domain.BetModel{}, &mockAddError{message: "Error on Add Bet at repository"}
+		return domain.BetModel{}, newTestError("Error on Add Bet at repository")
 	}
-	a := NewAddBet(r)
+	a := betusecases.NewAddBet(r)
 
 	_, err := a.AddBet(domain.Bet{
 		Numbers: []int{1, 2, 3, 4, 5, 6},

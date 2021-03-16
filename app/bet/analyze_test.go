@@ -1,19 +1,12 @@
-package betusecases
+package betusecases_test
 
 import (
+	betusecases "lucky-sena/app/bet"
 	"lucky-sena/domain"
 	"reflect"
 	"testing"
 	"time"
 )
-
-type mockAnalyzeError struct {
-	message string
-}
-
-func (e *mockAnalyzeError) Error() string {
-	return e.message
-}
 
 func makeMockedBets() []domain.Bet {
 	return []domain.Bet{
@@ -24,7 +17,7 @@ func makeMockedBets() []domain.Bet {
 
 func TestNextBetCode(t *testing.T) {
 	r := newFakeAnalyzeRepository()
-	sut := NewAnalyzeBet(r)
+	sut := betusecases.NewAnalyzeBet(r)
 
 	nextGame, _ := sut.NextBetCode()
 
@@ -36,9 +29,9 @@ func TestNextBetCode(t *testing.T) {
 func TestNextBetCodeFails(t *testing.T) {
 	r := newFakeAnalyzeRepository()
 	r.FindMock = func() ([]domain.Bet, error) {
-		return []domain.Bet{}, &mockAnalyzeError{message: "Error on analyze repository"}
+		return []domain.Bet{}, newTestError("Error on analyze repository")
 	}
-	sut := NewAnalyzeBet(r)
+	sut := betusecases.NewAnalyzeBet(r)
 
 	_, err := sut.NextBetCode()
 
@@ -49,7 +42,7 @@ func TestNextBetCodeFails(t *testing.T) {
 
 func TestIsBetAlreadyWon(t *testing.T) {
 	r := newFakeAnalyzeRepository()
-	sut := NewAnalyzeBet(r)
+	sut := betusecases.NewAnalyzeBet(r)
 
 	if isBetWon, _ := sut.IsBetAlreadyWon([]int{1, 2, 3, 4, 5, 6}); !isBetWon {
 		t.Error("expected bet to have already wan but got", isBetWon)
@@ -63,9 +56,9 @@ func TestIsBetAlreadyWon(t *testing.T) {
 func TestIsBetAlreadyWonFails(t *testing.T) {
 	r := newFakeAnalyzeRepository()
 	r.FindBetByNumbersMock = func(numbers []int) ([]domain.Bet, error) {
-		return []domain.Bet{}, &mockAnalyzeError{message: "Error on analyze repository"}
+		return []domain.Bet{}, newTestError("Error on analyze repository")
 	}
-	sut := NewAnalyzeBet(r)
+	sut := betusecases.NewAnalyzeBet(r)
 
 	if _, err := sut.IsBetAlreadyWon([]int{1, 2, 3, 4, 5, 6}); err == nil {
 		t.Error("expect err to not be nil, got: ", err)

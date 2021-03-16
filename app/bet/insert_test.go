@@ -1,17 +1,10 @@
-package betusecases
+package betusecases_test
 
 import (
+	betusecases "lucky-sena/app/bet"
 	"lucky-sena/domain"
 	"testing"
 )
-
-type mockInsertError struct {
-	message string
-}
-
-func (m *mockInsertError) Error() string {
-	return m.message
-}
 
 type fakeInserRepositoy struct {
 	InsertManyMock func([]domain.Bet) error
@@ -31,7 +24,7 @@ func newInsertFakeRepository() *fakeInserRepositoy {
 
 func TestInsertBets(t *testing.T) {
 	r := newInsertFakeRepository()
-	sut := NewInsertBets(r)
+	sut := betusecases.NewInsertBets(r)
 
 	err := sut.InsertBets(makeMockedBets())
 	if err != nil {
@@ -41,8 +34,8 @@ func TestInsertBets(t *testing.T) {
 
 func TestInsertBetsFails(t *testing.T) {
 	r := newInsertFakeRepository()
-	r.InsertManyMock = func(b []domain.Bet) error { return &mockInsertError{message: "Error on InsertMany"} }
-	sut := NewInsertBets(r)
+	r.InsertManyMock = func(b []domain.Bet) error { return newTestError("Error on InsertMany") }
+	sut := betusecases.NewInsertBets(r)
 
 	err := sut.InsertBets(makeMockedBets())
 	if err == nil {

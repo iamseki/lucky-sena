@@ -1,6 +1,7 @@
-package betusecases
+package betusecases_test
 
 import (
+	betusecases "lucky-sena/app/bet"
 	"lucky-sena/domain"
 	"testing"
 )
@@ -8,7 +9,7 @@ import (
 func TestConvertBetsToCsv(t *testing.T) {
 	r := newFakeFindRepository()
 	c := newFakeCSVConverter()
-	sut := NewDbBetToCsv(r, c)
+	sut := betusecases.NewDbBetToCsv(r, c)
 
 	err := sut.ConvertBetsToCsv()
 	if err != nil {
@@ -19,10 +20,10 @@ func TestConvertBetsToCsv(t *testing.T) {
 func TestConvertBetsToCsvFindFails(t *testing.T) {
 	r := newFakeFindRepository()
 	r.FindMock = func() ([]domain.Bet, error) {
-		return []domain.Bet{}, &mockDbCsvError{message: "Error on DbBetToCsv usecase in Find method"}
+		return []domain.Bet{}, newTestError("Error on DbBetToCsv usecase in Find method")
 	}
 	c := newFakeCSVConverter()
-	sut := NewDbBetToCsv(r, c)
+	sut := betusecases.NewDbBetToCsv(r, c)
 
 	err := sut.ConvertBetsToCsv()
 	if err == nil {
@@ -34,22 +35,14 @@ func TestConvertBetsToCsvConverterFails(t *testing.T) {
 	r := newFakeFindRepository()
 	c := newFakeCSVConverter()
 	c.ConvertMock = func(b []domain.Bet) error {
-		return &mockDbCsvError{message: "Error on DbBetToCsv usecase in Converter method"}
+		return newTestError("Error on DbBetToCsv usecase in Converter method")
 	}
-	sut := NewDbBetToCsv(r, c)
+	sut := betusecases.NewDbBetToCsv(r, c)
 
 	err := sut.ConvertBetsToCsv()
 	if err == nil {
 		t.Error("err must not be nil but got", err)
 	}
-}
-
-type mockDbCsvError struct {
-	message string
-}
-
-func (e *mockDbCsvError) Error() string {
-	return e.message
 }
 
 type fakeFindRepository struct {
