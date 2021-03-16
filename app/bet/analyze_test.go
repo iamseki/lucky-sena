@@ -5,15 +5,7 @@ import (
 	"lucky-sena/domain"
 	"reflect"
 	"testing"
-	"time"
 )
-
-func makeMockedBets() []domain.Bet {
-	return []domain.Bet{
-		{Numbers: []int{1, 2, 3, 4, 5, 6}, Code: 1, Date: time.Now()},
-		{Numbers: []int{1, 2, 3, 4, 5, 6}, Code: 2, Date: time.Now()},
-	}
-}
 
 func TestNextBetCode(t *testing.T) {
 	r := newFakeAnalyzeRepository()
