@@ -44,33 +44,3 @@ func TestConvertBetsToCsvConverterFails(t *testing.T) {
 		t.Error("err must not be nil but got", err)
 	}
 }
-
-type fakeFindRepository struct {
-	FindMock func() ([]domain.Bet, error)
-}
-
-func (fr *fakeFindRepository) Find() ([]domain.Bet, error) {
-	return fr.FindMock()
-}
-
-type fakeCSVConverter struct {
-	ConvertMock func([]domain.Bet) error
-}
-
-func (fc *fakeCSVConverter) Convert(bets []domain.Bet) error {
-	return fc.ConvertMock(bets)
-}
-
-func newFakeFindRepository() *fakeFindRepository {
-	return &fakeFindRepository{
-		FindMock: func() ([]domain.Bet, error) {
-			return makeMockedBets(), nil
-		},
-	}
-}
-
-func newFakeCSVConverter() *fakeCSVConverter {
-	return &fakeCSVConverter{
-		ConvertMock: func(b []domain.Bet) error { return nil },
-	}
-}

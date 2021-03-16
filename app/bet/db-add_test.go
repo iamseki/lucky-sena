@@ -7,26 +7,6 @@ import (
 	"time"
 )
 
-type fakeAddRepository struct {
-	AddFn func(b domain.Bet) (domain.BetModel, error)
-}
-
-func newFakeAddRepository() *fakeAddRepository {
-	return &fakeAddRepository{
-		AddFn: func(b domain.Bet) (domain.BetModel, error) {
-			return domain.BetModel{
-				ID:      "any-id",
-				Numbers: b.Numbers,
-				Code:    b.Code,
-				Date:    b.Date,
-			}, nil
-		},
-	}
-}
-
-func (fr *fakeAddRepository) Add(b domain.Bet) (domain.BetModel, error) {
-	return fr.AddFn(b)
-}
 func TestAddBetSuccess(t *testing.T) {
 	r := newFakeAddRepository()
 	a := betusecases.NewAddBet(r)

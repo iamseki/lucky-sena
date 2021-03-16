@@ -6,22 +6,6 @@ import (
 	"testing"
 )
 
-type fakeInserRepositoy struct {
-	InsertManyMock func([]domain.Bet) error
-}
-
-func (fr *fakeInserRepositoy) InsertMany(bets []domain.Bet) error {
-	return fr.InsertManyMock(bets)
-}
-
-func newInsertFakeRepository() *fakeInserRepositoy {
-	return &fakeInserRepositoy{
-		InsertManyMock: func(b []domain.Bet) error {
-			return nil
-		},
-	}
-}
-
 func TestInsertBets(t *testing.T) {
 	r := newInsertFakeRepository()
 	sut := betusecases.NewInsertBets(r)
