@@ -19,7 +19,7 @@ func (generator *defaultGenerator) Generate(options Options) []GenaretedBet {
 	var wg sync.WaitGroup
 	var bets []GenaretedBet
 
-	for c := 0; c < options.BetsToGenerate; c++ {
+	for c := 0; c < options.BetsToGenerate-1; c++ {
 		wg.Add(1)
 		go func(c int) {
 			defer wg.Done()
@@ -29,6 +29,8 @@ func (generator *defaultGenerator) Generate(options Options) []GenaretedBet {
 		}(c)
 	}
 	wg.Wait()
+
+	bets = includeMergedBet(bets, options.BetsToGenerate)
 
 	return bets
 }
@@ -43,4 +45,42 @@ func generateNumbers(numbers []int, random *rand.Rand, lastResults []int) {
 		numbers[i] = randomNumber
 	}
 	sort.Ints(numbers)
+}
+
+func includeMergedBet(bets []GenaretedBet, betsMaded int) []GenaretedBet {
+	m := make(map[int]int)
+
+	for _, bet := range bets {
+		for _, number := range bet.Numbers {
+			if _, exists := m[number]; !exists {
+				m[number] = 1
+			} else {
+				m[number] += 1
+			}
+		}
+	}
+
+	merged := GenaretedBet{}
+
+	// a number can appeared at max the numbers of bets maded
+	// cause there's no repeating numbers in a single bet
+	maxBetsCount := betsMaded
+
+	for maxBetsCount >= 1 {
+		for number, appearedTimes := range m {
+			if len(merged.Numbers) == 6 {
+				break
+				// ranking by times appeared in bets
+			} else if appearedTimes == maxBetsCount {
+				merged.Numbers = append(merged.Numbers, number)
+			}
+		}
+
+		maxBetsCount--
+	}
+
+	sort.Ints(merged.Numbers)
+
+	bets = append(bets, merged)
+	return bets
 }
